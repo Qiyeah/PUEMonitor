@@ -17,45 +17,63 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "sunline.db";
     private static final int VERSION = 1;
     private SQLiteDatabase mDatabase;
+
     public DBHelper(Context context) {
         super(context, DB_NAME, null, VERSION);
         mDatabase = getWritableDatabase();
     }
 
     /**
-     *  数据库第一次创建时被调用，仅调用一次。功能是用来建表
+     * 数据库第一次创建时被调用，仅调用一次。功能是用来建表
+     *
      * @param db
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql = "create table Equipment(_id integer primary key," +
-                "device_name varchar(20)," +
-                "device_state integer ," +
-                "device_width integer," +
-                "device_height integer," +
-                "device_x integer," +
-                "device_y integer," +
-                "device_channel1 integer," +
-                "device_channel2 integer," +
-                "device_channel3 integer," +
-                "device_channel4 integer," +
-                "device_channel5 integer" +
+        String sql = "create table Equipment( " +
+                "_id CHAR(32)  NULL," +
+                "rid integer  NULL," +
+                "port CHAR(10)  NULL," +
+                "rate CHAR(6)  NULL," +
+                "addr CHAR(3)  NULL," +
+                "timeout CHAR(6)  NULL DEFAULT '200'," +
+                "data CHAR(2)  NULL DEFAULT '8'," +
+                "stop CHAR(2)  NULL DEFAULT '1'," +
+                "parity CHAR(2)  NULL DEFAULT '0'," +
+                "switch CHAR(1)  NULL DEFAULT '1'," +
+                "delayed CHAR(2)  NULL DEFAULT '0'," +
+                "dt DATETIME  NULL DEFAULT (datetime('now','localtime'))," +
+                "PRIMARY KEY (_id) " +
                 ")";
         db.execSQL(sql);
-        sql = "create table Channels(" +
-                "_id integer primary key," +
-                "device_name varchar(20)," +
-                "device_shuntName1 varchar(30)," +
-                "device_shuntName2 varchar(30)," +
-                "device_shuntName3 varchar(30)," +
-                "device_shuntName4 varchar(30)," +
-                "device_shuntName5 varchar(30)" +
-                ") ";
+        sql = "CREATE TABLE EquipmentInfo (" +
+                "_id CHAR(32) NOT NULL," +
+                "route SMALLINT NOT NULL," +
+                "name CHAR(32) NOT NULL," +
+                "attr SMALLINT NOT NULL," +
+                "fk CHAR(32) NOT NULL," +
+                "per SMALLINT NOT NULL DEFAULT 100," +
+                "symbol SMALLINT NOT NULL DEFAULT 1," +
+                "dt DATETIME NOT NULL DEFAULT (datetime('now','localtime'))," +
+                "PRIMARY KEY (_id) " +
+                ")";
+        db.execSQL(sql);
+        sql = "CREATE TABLE EquipmentLocation (" +
+                "_id CHAR(32) NOT NULL," +
+                "width integer NOT  NULL," +
+                "height integer NOT  NULL," +
+                "leftMargin integer NOT  NULL," +
+                "rightMargin integer NOT  NULL," +
+                "fk CHAR(32) NOT NULL," +
+                "dt DATETIME NOT NULL DEFAULT (datetime('now','localtime'))," +
+                "PRIMARY KEY (_id) " +
+                ")";
         db.execSQL(sql);
     }
 
     /**
      * 版本更新时才调用
+     *
      * @param db
      * @param oldVersion
      * @param newVersion
@@ -70,16 +88,18 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(sql);
     }
 
-    /**\
+    /**
+     * \
      * 执行增、删、改操作
+     *
      * @param sql
      * @param params
      * @return
      */
-    public boolean update(String sql,Object[] params){
-        boolean flag =  false;
+    public boolean update(String sql, Object... params) {
+        boolean flag = false;
         try {
-            mDatabase.execSQL(sql,params);
+            mDatabase.execSQL(sql, params);
             flag = true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -89,11 +109,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * 执行查询操作
+     *
      * @param sql
      * @param selectionArs
      * @return
      */
-    public Cursor query(String sql,String[] selectionArs){
-        return mDatabase.rawQuery(sql,selectionArs);
+    public Cursor query(String sql, String[] selectionArs) {
+        return mDatabase.rawQuery(sql, selectionArs);
     }
 }

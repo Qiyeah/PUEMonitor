@@ -15,10 +15,9 @@ public class Equipment {
     private String mDataBits = "";
     private String mStopBits = "";
     private String mParity = "";
-    private String mState = "";
+    private String mSwitch = "";
     private String mDelay = "";
-    private float mWidth = 0f;
-    private float mHeight = 0f;
+
 
     public Date getDate() {
         return mDate;
@@ -33,28 +32,13 @@ public class Equipment {
     public Equipment() {
     }
 
-    public Equipment(String id, String name, String port, String rate, String addr) {
-        mId = id;
-        mName = name;
-        mPort = port;
-        mRate = rate;
-        mAddr = addr;
-    }
 
-    public Equipment(String id, float height, float width) {
-        mId = id;
-        mHeight = height;
-        mWidth = width;
-    }
-
-    public Equipment(String id, String name, String port, String rate, String addr, float width, float height) {
-        mId = id;
-        mName = name;
-        mPort = port;
-        mRate = rate;
-        mAddr = addr;
-        mWidth = width;
-        mHeight = height;
+    public Equipment(String mId, String mName, String mPort, String mRate, String mAddr) {
+        this.mId = mId;
+        this.mName = mName;
+        this.mPort = mPort;
+        this.mRate = mRate;
+        this.mAddr = mAddr;
     }
 
     public Equipment(String id, String name, String port,
@@ -69,7 +53,7 @@ public class Equipment {
         mDataBits = dataBits;
         mStopBits = stopBits;
         mParity = parity;
-        mState = state;
+        mSwitch = state;
         mDelay = delay;
     }
 
@@ -129,12 +113,12 @@ public class Equipment {
         mAddr = addr;
     }
 
-    public String getState() {
-        return mState;
+    public String getSwitch() {
+        return mSwitch;
     }
 
-    public void setState(String state) {
-        mState = state;
+    public void setSwitch(String state) {
+        mSwitch = state;
     }
 
     public String getDelay() {
@@ -161,19 +145,11 @@ public class Equipment {
         return mParity;
     }
 
-    public float getHeight() {
-        return mHeight;
+    public Date getmDate() {
+        return new java.sql.Date(System.currentTimeMillis());
     }
 
-    public void setHeight(float height) {
-        mHeight = height;
-    }
-
-    public float getWidth() {
-        return mWidth;
-    }
-
-    public void setWidth(float width) {
-        mWidth = width;
+    public void setmDate(Date mDate) {
+        this.mDate = mDate;
     }
 }
