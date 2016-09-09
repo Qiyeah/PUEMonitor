@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+        <item
+            android:id="@+id/menu_setting_wifi"
+            android:icon="@drawable/info"
+            android:title="添加设备参数"
+           >
+
+        </item>
+
+
+        <item
+            android:id="@+id/menu_setting_userIcon"
+            android:icon="@drawable/info"
+            android:title="添加通道参数"
+            >
+        </item>
+</menu>

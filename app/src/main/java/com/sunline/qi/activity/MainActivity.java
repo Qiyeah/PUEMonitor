@@ -1,8 +1,10 @@
 package com.sunline.qi.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +31,7 @@ public class MainActivity extends Activity {
         initView();
     }
     private void initView(){
-        EquipmentUtilsImpl utils = new EquipmentUtilsImpl();
+        EquipmentUtilsImpl utils = new EquipmentUtilsImpl(this);
         List<Button> list = utils.loadEquipments(this);
         for (Button button : list) {
             container.addView(button);
@@ -46,7 +48,8 @@ public class MainActivity extends Activity {
         switch (item.getItemId()){
             case 0:
                 //Log.i(TAG,"onContextItemSelected(item)");
-                EquipmentUtilsImpl utils = new EquipmentUtilsImpl();
+                initDialog();
+                EquipmentUtilsImpl utils = new EquipmentUtilsImpl(this);
                 Equipment equipment = new Equipment();
                 equipment.setId(IDUtils.getId(IDUtils.AC));
                 equipment.setRid(IDUtils.generateRID());
@@ -66,5 +69,13 @@ public class MainActivity extends Activity {
                 break;
         }
         return super.onContextItemSelected(item);
+    }
+    private void initDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("create equipment");
+        View view = LayoutInflater.from(this).inflate(R.layout.layout_alert,null);
+
+        builder.setView(view);
+        builder.show();
     }
 }

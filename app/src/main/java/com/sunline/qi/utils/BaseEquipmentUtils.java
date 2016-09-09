@@ -19,5 +19,5 @@ public interface BaseEquipmentUtils {
     void updateEquipments(Context context, Equipment equipment);
     Equipment findEquipments(Context context, String id);
     List<Button> loadEquipments(Context context);
-    Button loadEquipment(Context context,String name,int id, EquipmentLocation location);
+    Button loadEquipment(String name,int id, EquipmentLocation location);
 }
