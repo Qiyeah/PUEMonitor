@@ -38,9 +38,9 @@ public class LocationDaoImpl extends DBHelper implements LocationUtils {
 
     @Override
     public EquipmentLocation findLocation(String fk) {
-        String sql = "select (width,height,leftMargin,topMargin) from EquipmentLocation where fid = ?";
+        String sql = "select width,height,leftMargin,topMargin from EquipmentLocation where fk = ?";
         Cursor cursor = query(sql, new String[]{fk});
-        if (0 < cursor.getCount()) {
+        while (cursor.moveToNext()) {
             return new EquipmentLocation(fk,
                     cursor.getInt(cursor.getColumnIndex("width")),
                     cursor.getInt(cursor.getColumnIndex("height")),

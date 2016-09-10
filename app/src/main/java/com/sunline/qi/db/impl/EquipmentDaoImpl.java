@@ -21,12 +21,12 @@ public class EquipmentDaoImpl extends DBHelper implements EquipmentUtils {
     @Override
     public boolean addEquipment(Equipment equipment) {
         String sql = "insert into Equipment (" +
-                "id,name,port,rate,addr,timeout,data,stop,parity,switch,delayed,dt" +
+                "_id,rid,name,port,rate,addr,timeout,data,stop,parity,switch,delayed" +
                 ") values(" +
                 "?,?,?,?,?,?,?,?,?,?,?,?)";
-        return update(sql, new Object[]{equipment.getId(), equipment.getName(), equipment.getPort(), equipment.getRate(),
+        return update(sql, new Object[]{equipment.getId(),equipment.getRid(), equipment.getName(), equipment.getPort(), equipment.getRate(),
                 equipment.getAddr(),equipment.getTimeOut(), equipment.getDataBits(), equipment.getStopBits(),
-                equipment.getParity(),equipment.getSwitch(), equipment.getDelay(), equipment.getDate()});
+                equipment.getParity(),equipment.getSwitch(), equipment.getDelay()});
     }
 
     @Override
@@ -68,13 +68,14 @@ public class EquipmentDaoImpl extends DBHelper implements EquipmentUtils {
 
     @Override
     public List<Equipment> findAll() {
-        String sql = "select (id,name,port,rate,addr,timeout,data,stop,parity,switch,delayed) " +
-                "from Equipment where _id = ?";
-        Cursor cursor = query(sql,new String[]{});
+        String sql = "select * from Equipment";
+        Cursor cursor = query(sql);
         List<Equipment> list = new ArrayList<Equipment>();
-        while (0 < cursor.getCount()){
+
+        while (cursor.moveToNext()){
             Equipment equipment = new Equipment();
             equipment.setId(cursor.getString(cursor.getColumnIndex("_id")));
+            equipment.setRid(cursor.getInt(cursor.getColumnIndex("rid")));
             equipment.setName(cursor.getString(cursor.getColumnIndex("name")));
             equipment.setPort(cursor.getString(cursor.getColumnIndex("port")));
             equipment.setRate(cursor.getString(cursor.getColumnIndex("rate")));

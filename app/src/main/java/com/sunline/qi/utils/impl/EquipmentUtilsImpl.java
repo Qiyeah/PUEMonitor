@@ -10,6 +10,7 @@ import com.sunline.qi.db.impl.LocationDaoImpl;
 import com.sunline.qi.entity.Equipment;
 import com.sunline.qi.entity.EquipmentLocation;
 import com.sunline.qi.utils.BaseEquipmentUtils;
+import com.sunline.qi.utils.IDUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,9 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
         params.topMargin = topMargin;
         button.setLayoutParams(params);
         dbUtils.addEquipment(equipment);
+        LocationDaoImpl locationDao = new LocationDaoImpl(context);
+        locationDao.addLocation(new EquipmentLocation(IDUtils.getId(IDUtils.LOCATION),
+                equipment.getId(), width, height, leftMargin, topMargin));
         return button;
     }
 
@@ -55,14 +59,25 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
     @Override
     public List<Button> loadEquipments(Context context) {
         List<Button> list = new ArrayList<>();
-        EquipmentDaoImpl dbUtils = new EquipmentDaoImpl(context);
+        EquipmentDaoImpl equipmentUtils = new EquipmentDaoImpl(context);
         LocationDaoImpl locationUtils = new LocationDaoImpl(context);
-        List<Equipment> equipments = dbUtils.findAll();
+        List<Equipment> equipments = equipmentUtils.findAll();
         for (Equipment equipment : equipments) {
             EquipmentLocation location = locationUtils.findLocation(equipment.getId());
-            list.add(createEquipments(context,equipment,location.getWidth(),
-                    location.getHeight(),location.getLeftMargin(),location.getTopMargin()));
+            list.add(loadEquipment(context,equipment.getName(),equipment.getRid(),location));
         }
         return list;
+    }
+
+    @Override
+    public Button loadEquipment(Context context,String name,int id, EquipmentLocation location) {
+        Button button = new Button(context);
+        button.setText(name);
+        button.setId(id);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(location.getWidth(),location.getHeight());
+        params.leftMargin = location.getLeftMargin();
+        params.topMargin = location.getTopMargin();
+        button.setLayoutParams(params);
+        return button;
     }
 }

@@ -7,6 +7,7 @@ import java.util.Date;
  */
 public class Equipment {
     private String mId = "";
+    private int mRid = 0;
     private String mName = "";
     private String mPort = "";
     private String mRate = "";
@@ -33,8 +34,9 @@ public class Equipment {
     }
 
 
-    public Equipment(String mId, String mName, String mPort, String mRate, String mAddr) {
+    public Equipment(String mId,int rId, String mName, String mPort, String mRate, String mAddr) {
         this.mId = mId;
+        this.mRid = rId;
         this.mName = mName;
         this.mPort = mPort;
         this.mRate = mRate;
@@ -55,6 +57,14 @@ public class Equipment {
         mParity = parity;
         mSwitch = state;
         mDelay = delay;
+    }
+
+    public int getRid() {
+        return mRid;
+    }
+
+    public void setRid(int rid) {
+        mRid = rid;
     }
 
     public void setTimeOut(String timeOut) {

@@ -1,4 +1,4 @@
-package com.sunline.qi;
+package com.sunline.qi.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import com.sunline.qi.entity.Equipment;
 import com.sunline.qi.utils.IDUtils;
 import com.sunline.qi.utils.impl.EquipmentUtilsImpl;
 
+import java.util.List;
+
 /**
  * Created by qi on 2016/9/8.
  */
@@ -24,8 +26,15 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         container = (RelativeLayout) findViewById(R.id.container);
         registerForContextMenu(container);
+        initView();
     }
-
+    private void initView(){
+        EquipmentUtilsImpl utils = new EquipmentUtilsImpl();
+        List<Button> list = utils.loadEquipments(this);
+        for (Button button : list) {
+            container.addView(button);
+        }
+    }
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         menu.setHeaderTitle("创建设备菜单");
@@ -40,6 +49,7 @@ public class MainActivity extends Activity {
                 EquipmentUtilsImpl utils = new EquipmentUtilsImpl();
                 Equipment equipment = new Equipment();
                 equipment.setId(IDUtils.getId(IDUtils.AC));
+                equipment.setRid(IDUtils.generateRID());
                 equipment.setName("多路表x1");
                 equipment.setRate("9600");
                 equipment.setParity("0");
@@ -48,6 +58,7 @@ public class MainActivity extends Activity {
                 equipment.setDataBits("8");
                 equipment.setStopBits("1");
                 equipment.setDelay("1");
+                equipment.setSwitch("1");
                 equipment.setTimeOut("200");
                 Button button = utils.createEquipments(this,equipment,200,100,100,100);
                 container.addView(button);

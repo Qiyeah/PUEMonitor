@@ -33,6 +33,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String sql = "create table Equipment( " +
                 "_id CHAR(32)  NULL," +
                 "rid integer  NULL," +
+                "name CHAR(32)  NULL," +
                 "port CHAR(10)  NULL," +
                 "rate CHAR(6)  NULL," +
                 "addr CHAR(3)  NULL," +
@@ -49,7 +50,6 @@ public class DBHelper extends SQLiteOpenHelper {
         sql = "CREATE TABLE EquipmentInfo (" +
                 "_id CHAR(32) NOT NULL," +
                 "route SMALLINT NOT NULL," +
-                "name CHAR(32) NOT NULL," +
                 "attr SMALLINT NOT NULL," +
                 "fk CHAR(32) NOT NULL," +
                 "per SMALLINT NOT NULL DEFAULT 100," +
@@ -60,11 +60,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(sql);
         sql = "CREATE TABLE EquipmentLocation (" +
                 "_id CHAR(32) NOT NULL," +
+                "fk CHAR(32) NOT NULL," +
                 "width integer NOT  NULL," +
                 "height integer NOT  NULL," +
                 "leftMargin integer NOT  NULL," +
-                "rightMargin integer NOT  NULL," +
-                "fk CHAR(32) NOT NULL," +
+                "topMargin integer NOT  NULL," +
                 "dt DATETIME NOT NULL DEFAULT (datetime('now','localtime'))," +
                 "PRIMARY KEY (_id) " +
                 ")";
@@ -114,7 +114,7 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param selectionArs
      * @return
      */
-    public Cursor query(String sql, String[] selectionArs) {
+    public Cursor query(String sql, String... selectionArs) {
         return mDatabase.rawQuery(sql, selectionArs);
     }
 }

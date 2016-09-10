@@ -17,6 +17,7 @@ public class IDUtils {
     public static final int KWH_ACCUM_DAY = 0x08;
     public static final int KWH_ACCUM_MONTH = 0x09;
     public static final int KWH_ACCUM_YEAR = 0x10;
+    public static final int LOCATION = 0x11;
     public static String randomStr29(){
         StringBuilder sb = new StringBuilder();
         sb.append(new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
@@ -32,6 +33,14 @@ public class IDUtils {
             sb.append(""+(int)(Math.random() * 10));
         }
         return sb.toString();
+    }
+    public static int generateRID(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(new SimpleDateFormat("SSS").format(new Date()));
+        for (int i = 0; i < 3 ; i++) {
+            sb.append(""+(int)(Math.random() * 10));
+        }
+        return Integer.parseInt(sb.toString());
     }
     public static String getId(int type){
         if (AC == type){
@@ -54,6 +63,8 @@ public class IDUtils {
             return "ACM"+ randomStr29();
         }else if (KWH_ACCUM_YEAR == type){
             return "ACY"+ randomStr29();
+        }else if (LOCATION == type){
+            return "LOC"+ randomStr29();
         }
         return null;
     }

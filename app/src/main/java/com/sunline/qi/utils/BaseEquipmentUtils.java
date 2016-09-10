@@ -6,6 +6,7 @@ import android.widget.Button;
 
 import com.sunline.qi.db.impl.EquipmentDaoImpl;
 import com.sunline.qi.entity.Equipment;
+import com.sunline.qi.entity.EquipmentLocation;
 
 import java.util.List;
 
@@ -18,4 +19,5 @@ public interface BaseEquipmentUtils {
     void updateEquipments(Context context, Equipment equipment);
     Equipment findEquipments(Context context, String id);
     List<Button> loadEquipments(Context context);
+    Button loadEquipment(Context context,String name,int id, EquipmentLocation location);
 }

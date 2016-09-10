@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">PUEMonitor</string>
+    <array name="symbol">
+        <item>正号</item>
+        <item>负号</item>
+    </array>
+    <array name="attr">
+        <item>IT耗电</item>
+        <item>总耗电</item>
+    </array>
 </resources>
