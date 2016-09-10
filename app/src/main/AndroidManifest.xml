@@ -10,8 +10,8 @@
         android:theme="@style/AppTheme" >
         <activity android:name="com.sunline.qi.activity.MainActivity">
             <intent-filter>
-                <action android:name="ANDROID.INTENT.ACTION.MAIN"/>
-                <category android:name="ANDROID.INTENT.CATEGORY.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
 
         </activity>

@@ -2,6 +2,7 @@ package com.sunline.qi.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import java.util.List;
  */
 public class MainActivity extends Activity {
     RelativeLayout container;
+    Equipment mEquipment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.layout_config);
@@ -49,33 +51,31 @@ public class MainActivity extends Activity {
             case 0:
                 //Log.i(TAG,"onContextItemSelected(item)");
                 initDialog();
-                EquipmentUtilsImpl utils = new EquipmentUtilsImpl(this);
-                Equipment equipment = new Equipment();
-                equipment.setId(IDUtils.getId(IDUtils.AC));
-                equipment.setRid(IDUtils.generateRID());
-                equipment.setName("多路表x1");
-                equipment.setRate("9600");
-                equipment.setParity("0");
-                equipment.setPort("COM4");
-                equipment.setAddr("01");
-                equipment.setDataBits("8");
-                equipment.setStopBits("1");
-                equipment.setDelay("1");
-                equipment.setSwitch("1");
-                equipment.setTimeOut("200");
-                Button button = utils.createEquipments(this,equipment,200,100,100,100);
-                container.addView(button);
-                container.invalidate();
+
                 break;
         }
         return super.onContextItemSelected(item);
     }
     private void initDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("create equipment");
+        builder.setTitle(R.string.content_menu_title);
         View view = LayoutInflater.from(this).inflate(R.layout.layout_alert,null);
-
         builder.setView(view);
+        builder = builder.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
         builder.show();
+    }
+    private class ViewTag{
+
     }
 }
