@@ -6,18 +6,18 @@ import java.util.Date;
  * Created by sunline on 2016/8/22.
  */
 public class Equipment {
-    private String mId = "";
-    private int mRid = 0;
-    private String mName = "";
-    private String mPort = "";
-    private String mRate = "";
-    private String mAddr = "";
-    private String mTimeOut = "";
-    private String mDataBits = "";
-    private String mStopBits = "";
-    private String mParity = "";
-    private String mSwitch = "";
-    private String mDelay = "";
+    private String mId;
+    private int mRid;
+    private String mName;
+    private String mPort;
+    private String mRate;
+    private String mAddr;
+    private String mTimeOut;
+    private String mDataBits;
+    private String mStopBits;
+    private String mParity;
+    private String mSwitch;
+    private String mDelay;
 
 
     public Date getDate() {
@@ -34,7 +34,7 @@ public class Equipment {
     }
 
 
-    public Equipment(String mId,int rId, String mName, String mPort, String mRate, String mAddr) {
+    public Equipment(String mId, int rId, String mName, String mPort, String mRate, String mAddr) {
         this.mId = mId;
         this.mRid = rId;
         this.mName = mName;
@@ -161,5 +161,13 @@ public class Equipment {
 
     public void setmDate(Date mDate) {
         this.mDate = mDate;
+    }
+
+    public boolean isNull() {
+        if (null != mId && null != mName&& null != mPort && null != mRate&& null != mAddr) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -1,14 +1,11 @@
 package com.sunline.qi.listener;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.sunline.qi.activity.R;
 import com.sunline.qi.utils.ScreenUtils;
 
 import java.util.Calendar;
@@ -29,20 +26,20 @@ public class EquipmentOnTouchListenerImpl implements View.OnTouchListener {
     private boolean isOpen = true;
     private LayoutInflater mInflater;
     private int btnId = 0;
-    private int mScreenWidth,mScreenHeight,width,height;
+    private int mScreenWidth,mScreenHeight, mWidth, mHeight;
     private ScreenUtils mScreenUtils ;
     private int rows = 10;
     private int cols = 15;
     private int leftMargin,topMargin;
 
 
-    public EquipmentOnTouchListenerImpl(Context context) {
+    public EquipmentOnTouchListenerImpl(Context context,int width,int height) {
         mContext = context;
         mScreenUtils = new ScreenUtils(context);
         mScreenWidth = mScreenUtils.getScreenWidth();
         mScreenHeight = mScreenUtils.getScreenHeight();
-        width = mScreenWidth/cols;
-        height = mScreenHeight/rows;
+        mWidth = width;
+        mHeight = height;
     }
 
     public EquipmentOnTouchListenerImpl(LayoutInflater inflater, Context context,
@@ -53,11 +50,8 @@ public class EquipmentOnTouchListenerImpl implements View.OnTouchListener {
         mId = id;
 
     }
-
-
     @Override
     public boolean onTouch(final View v, MotionEvent event) {
-
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) v
                 .getLayoutParams();
         int x = (int) event.getRawX();
@@ -70,8 +64,47 @@ public class EquipmentOnTouchListenerImpl implements View.OnTouchListener {
                 break;
             case MotionEvent.ACTION_UP:
                 stop = Calendar.getInstance().getTimeInMillis();
+                break;
+            case MotionEvent.ACTION_POINTER_DOWN:
+                tempX = x - layoutParams.leftMargin;
+                tempY = y - layoutParams.topMargin;
+                break;
+            case MotionEvent.ACTION_POINTER_UP:
+                break;
+            case MotionEvent.ACTION_MOVE:
+                leftMargin = x - tempX;
+                topMargin = y - tempY;
+                if (leftMargin < 0) {
+                    leftMargin = 0;
+                }
+                if (topMargin < 0) {
+                    topMargin = 0;
+                }
 
-                if (1200 <= (stop - start)) {
+                int top = topMargin/ mHeight;
+                int left = leftMargin/ mWidth;
+                topMargin = top* mHeight;
+                leftMargin = left* mWidth;
+                if (leftMargin+v.getWidth() > mScreenWidth){
+                    leftMargin = mScreenWidth- mWidth;
+                }
+                if (topMargin + v.getHeight()>mScreenHeight){
+                    topMargin = mScreenHeight - mHeight;
+                }
+                layoutParams.topMargin = topMargin;
+                layoutParams.leftMargin = leftMargin;
+                v.setLayoutParams(layoutParams);
+                break;
+        }
+
+        //mLayout.invalidate();
+        return false;
+    }
+
+
+
+}
+/*if (1200 <= (stop - start)) {
                     btnId = v.getId();
                     //初始化设备参数列表
 
@@ -95,41 +128,4 @@ public class EquipmentOnTouchListenerImpl implements View.OnTouchListener {
                     });
                     builder.show();
 
-                }
-                /**
-                 * 更新配置文件中设备的坐标数据
-*/
-
-                break;
-
-            case MotionEvent.ACTION_POINTER_DOWN:
-                tempX = x - layoutParams.leftMargin;
-                tempY = y - layoutParams.topMargin;
-                break;
-            case MotionEvent.ACTION_POINTER_UP:
-                break;
-            case MotionEvent.ACTION_MOVE:
-                leftMargin = x - tempX;
-                topMargin = y - tempY;
-                if (leftMargin < 0) {
-                    leftMargin = 0;
-                }
-                if (topMargin < 0) {
-                    topMargin = 0;
-                }
-
-                int top = topMargin/height;
-                int left = leftMargin/width;
-                layoutParams.topMargin = top*height;
-                layoutParams.leftMargin = left*width;
-                v.setLayoutParams(layoutParams);
-                break;
-        }
-
-        //mLayout.invalidate();
-        return false;
-    }
-
-
-
-}
+                }*/

@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:background="@color/colorPrimary"
              android:layout_width="match_parent"
-             android:layout_height="wrap_content">
-    <ScrollView  android:padding="10dp"
-                 android:scrollbars="none"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent">
+             android:layout_height="wrap_content"
+             android:background="@color/colorPrimary">
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:scrollbars="none">
         <TableLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TableRow>
@@ -18,7 +17,7 @@
                     android:text="设备状态: "
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
                 <Switch
-                    android:id="@+id/switch1"
+                    android:id="@id/eState"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textOff="关闭"
@@ -26,211 +25,182 @@
 
             </TableRow>
             <TableRow>
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="设备类型: "
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+                <Spinner
+                    android:id="@id/eType"
+                    android:entries="@array/equipment_type"
+                    />
+            </TableRow>
+            <TableRow>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="设备名称: "
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
-
                 <EditText
-                    android:id="@+id/editText1"
+                    android:id="@id/eName"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     />
             </TableRow>
-
             <TableRow>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="端口号: "
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
-
                 <EditText
-                    android:id="@+id/editText2"
+                    android:id="@id/port"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
             </TableRow>
-
             <TableRow>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="波特率: "
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
-
                 <EditText
-                    android:id="@+id/editText3"
+                    android:id="@id/rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
             </TableRow>
-
             <TableRow>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="设备通信地址: "
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
-
                 <EditText
-                    android:id="@+id/editText4"
+                    android:id="@id/addr"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />
             </TableRow>
-
             <TableRow>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="超时时间（毫秒）: "
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
-
                 <EditText
-                    android:id="@+id/editText5"
+                    android:id="@id/timeout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="200"
                     android:numeric="integer"
-                    android:text="200"
                     />
             </TableRow>
-
             <TableRow>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="数据位: "
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
-
                 <EditText
-                    android:id="@+id/editText6"
+                    android:id="@id/data"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="8"
+                    android:hint="8"
                     />
             </TableRow>
-
             <TableRow>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="停止位: "
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
-
                 <EditText
-                    android:id="@+id/editText7"
+                    android:id="@id/stop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="1"
+                    android:hint="1"
                     />
             </TableRow>
-
             <TableRow>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="奇偶校验位: "
-
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
-
                 <EditText
-                    android:id="@+id/editText8"
+                    android:id="@id/parity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:hint="0"
                     />
             </TableRow>
-
             <TableRow>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="采集间隔（秒）: "
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
-
                 <EditText
-                    android:id="@+id/editText9"
+                    android:id="@id/delayed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:hint="0"
                     />
             </TableRow>
-
-
-
             <TableRow>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="控件按钮宽度（dp）: "
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
-
                 <EditText
-                    android:id="@+id/editText10"
+                    android:id="@id/eWidth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="200"
+                    android:hint="200"
                     />
             </TableRow>
-
             <TableRow>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="控件按钮高度（dp）: "
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
-
                 <EditText
-                    android:id="@+id/editText11"
+                    android:id="@id/eHeight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="100"
+                    android:hint="100"
                     />
             </TableRow>
             <TableRow>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="X坐标: "
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
-
                 <EditText
-                    android:id="@+id/xAxis"
+                    android:id="@id/xAxis"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="100"
+                    android:hint="100"
                     />
             </TableRow>
             <TableRow>
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Y坐标: "
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
-
                 <EditText
-                    android:id="@+id/yAxis"
+                    android:id="@id/yAxis"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="100"
+                    android:hint="100"
                     />
             </TableRow>
         </TableLayout>
     </ScrollView>
-
 </FrameLayout>

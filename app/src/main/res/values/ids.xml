@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="eState" type="id"/>
+    <item name="eType" type="id"/>
+    <item name="eName" type="id"/>
+    <item name="port" type="id"/>
+    <item name="rate" type="id"/>
+    <item name="addr" type="id"/>
+    <item name="timeout" type="id"/>
+    <item name="data" type="id"/>
+    <item name="stop" type="id"/>
+    <item name="parity" type="id"/>
+    <item name="delayed" type="id"/>
+    <item name="eWidth" type="id"/>
+    <item name="eHeight" type="id"/>
+    <item name="yAxis" type="id"/>
+    <item name="xAxis" type="id"/>
+</resources>

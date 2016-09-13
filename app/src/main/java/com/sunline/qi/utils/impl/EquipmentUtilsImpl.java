@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.sunline.qi.activity.R;
 import com.sunline.qi.db.impl.EquipmentDaoImpl;
@@ -31,20 +32,37 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
     }
 
     @Override
-    public Button createEquipments(Context context,Equipment equipment, int width, int height, int leftMargin,
-                                   int topMargin) {
+    public Button createEquipments(Context context,Equipment equipment,EquipmentLocation location) {
         EquipmentDaoImpl dbUtils = new EquipmentDaoImpl(context);
         Button button = new Button(context);
         button.setText(equipment.getName());
+
+        int width = location.getWidth();
+        int height = location.getHeight();
+        int xAxis = location.getLeftMargin();
+        int yAxis = location.getTopMargin();
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width,height);
-        params.leftMargin = leftMargin;
-        params.topMargin = topMargin;
+        params.leftMargin = location.getLeftMargin();
+        params.topMargin = location.getTopMargin();
         button.setLayoutParams(params);
-        dbUtils.addEquipment(equipment);
-        LocationDaoImpl locationDao = new LocationDaoImpl(context);
-        locationDao.addLocation(new EquipmentLocation(IDUtils.getId(IDUtils.LOCATION),
-                equipment.getId(), width, height, leftMargin, topMargin));
-        return button;
+        boolean flag = false;
+        try {
+            flag = dbUtils.addEquipment(equipment);
+        } catch (Exception e) {
+            Toast.makeText(mContext,"数据库添加失败！",Toast.LENGTH_LONG).show();
+        }
+        if (flag){
+            LocationDaoImpl locationDao = new LocationDaoImpl(context);
+            locationDao.addLocation(new EquipmentLocation(IDUtils.generateRID(),
+                    equipment.getId(), width, height, xAxis, yAxis));
+            /**
+             * 给创建的控制添加监听
+             */
+            button.setOnClickListener(new EquipmentOnClickListenerImpl(mContext));
+            button.setOnTouchListener(new EquipmentOnTouchListenerImpl(mContext, width, height));
+            return button;
+        }
+       return null;
     }
 
     @Override
@@ -72,23 +90,26 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
         EquipmentDaoImpl equipmentUtils = new EquipmentDaoImpl(context);
         LocationDaoImpl locationUtils = new LocationDaoImpl(context);
         List<Equipment> equipments = equipmentUtils.findAll();
-        for (Equipment equipment : equipments) {
-            EquipmentLocation location = locationUtils.findLocation(equipment.getId());
-            list.add(loadEquipment(equipment.getName(),equipment.getRid(),location));
+        if (null != equipments && 0 < equipments.size()){
+            for (Equipment equipment : equipments) {
+                EquipmentLocation location = locationUtils.findLocation(equipment.getId());
+                list.add(loadEquipment(equipment.getName(),location));
+            }
+            return list;
         }
-        return list;
+        return null;
     }
 
     @Override
-    public Button loadEquipment(String name, int id, EquipmentLocation location) {
+    public Button loadEquipment(String name,  EquipmentLocation location) {
         Button button = new Button(mContext);
         button.setText(name);
-        button.setId(id);
+        button.setId(location.getId());
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(location.getWidth(),location.getHeight());
         params.leftMargin = location.getLeftMargin();
         params.topMargin = location.getTopMargin();
         button.setLayoutParams(params);
-        button.setOnTouchListener(new EquipmentOnTouchListenerImpl(mContext));
+        button.setOnTouchListener(new EquipmentOnTouchListenerImpl(mContext,location.getWidth(),location.getHeight()));
         button.setOnClickListener(new EquipmentOnClickListenerImpl(mContext));
         return button;
     }

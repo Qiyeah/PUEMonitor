@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 
 /**
@@ -17,10 +18,12 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "sunline.db";
     private static final int VERSION = 1;
     private SQLiteDatabase mDatabase;
+    private Context mContext;
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, VERSION);
         mDatabase = getWritableDatabase();
+        mContext = context;
     }
 
     /**
@@ -30,6 +33,8 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
+        //Toast.makeText(mContext,"Sqlite onCreate is run !",Toast.LENGTH_LONG).show();
+        System.out.println("Sqlite onCreate is run !");
         String sql = "create table Equipment( " +
                 "_id CHAR(32)  NULL," +
                 "rid integer  NULL," +

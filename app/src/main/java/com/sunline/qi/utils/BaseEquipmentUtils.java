@@ -14,10 +14,10 @@ import java.util.List;
  * Created by sunline on 2016/9/9.
  */
 public interface BaseEquipmentUtils {
-    Button createEquipments(Context context,Equipment equipment, int width, int height, int leftMargin, int topMargin);
+    Button createEquipments(Context context,Equipment equipment,EquipmentLocation location);
     void deleteEquipments(Context context,Button equipment, String id);
     void updateEquipments(Context context, Equipment equipment);
     Equipment findEquipments(Context context, String id);
     List<Button> loadEquipments(Context context);
-    Button loadEquipment(String name,int id, EquipmentLocation location);
+    Button loadEquipment(String name,  EquipmentLocation location);
 }

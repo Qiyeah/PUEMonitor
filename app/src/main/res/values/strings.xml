@@ -8,6 +8,10 @@
         <item>IT耗电</item>
         <item>总耗电</item>
     </array>
+    <array name="equipment_type">
+        <item>多路表</item>
+        <item>直流电间</item>
+    </array>
     <string name="content_menu_add">添加设备</string>
     <string name="content_menu_title">设备管理</string>
     <string name="confirm">确定</string>

@@ -24,9 +24,12 @@ public class EquipmentDaoImpl extends DBHelper implements EquipmentUtils {
                 "_id,rid,name,port,rate,addr,timeout,data,stop,parity,switch,delayed" +
                 ") values(" +
                 "?,?,?,?,?,?,?,?,?,?,?,?)";
-        return update(sql, new Object[]{equipment.getId(),equipment.getRid(), equipment.getName(), equipment.getPort(), equipment.getRate(),
-                equipment.getAddr(),equipment.getTimeOut(), equipment.getDataBits(), equipment.getStopBits(),
-                equipment.getParity(),equipment.getSwitch(), equipment.getDelay()});
+        if (equipment.isNull()){
+            return update(sql, new Object[]{equipment.getId(),equipment.getRid(), equipment.getName(), equipment.getPort(), equipment.getRate(),
+                    equipment.getAddr(),equipment.getTimeOut(), equipment.getDataBits(), equipment.getStopBits(),
+                    equipment.getParity(),equipment.getSwitch(), equipment.getDelay()});
+        }
+        return false;
     }
 
     @Override

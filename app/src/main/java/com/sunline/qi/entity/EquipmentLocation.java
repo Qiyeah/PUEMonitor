@@ -4,7 +4,7 @@ package com.sunline.qi.entity;
  * Created by qi on 2016/9/8.
  */
 public class EquipmentLocation {
-    private String mId = "";
+    private int mId ;
     private String fId;
     private int mWidth = 0;
     private int mHeight = 0;
@@ -22,7 +22,7 @@ public class EquipmentLocation {
         this.topMargin = topMargin;
     }
 
-    public EquipmentLocation(String id, String fId, int width, int height, int leftMargin, int topMargin) {
+    public EquipmentLocation(int id, String fId, int width, int height, int leftMargin, int topMargin) {
         mId = id;
         this.fId = fId;
         mWidth = width;
@@ -31,11 +31,11 @@ public class EquipmentLocation {
         this.topMargin = topMargin;
     }
 
-    public String getId() {
+    public int getId() {
         return mId;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         mId = id;
     }
 
