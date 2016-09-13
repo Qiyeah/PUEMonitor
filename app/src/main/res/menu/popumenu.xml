@@ -4,13 +4,26 @@
     <item
         android:id="@+id/menu_setting_main"
         android:icon="@drawable/info"
-        android:title="添加设备参数"
+        android:title="更新设备信息"
         >
     </item>
     <item
         android:id="@+id/menu_setting_info"
         android:icon="@drawable/info"
-        android:title="添加通道参数"
+        android:title="更新通道信息"
+        >
+    </item>
+    <item
+        android:id="@+id/menu_setting_move"
+        android:icon="@drawable/info"
+        android:title="调整设备位置"
+        >
+    </item>
+
+    <item
+        android:id="@+id/menu_setting_drop"
+        android:icon="@drawable/info"
+        android:title="删除当前设备"
         >
     </item>
 </menu>

@@ -31,17 +31,18 @@ public class LocationDaoImpl extends DBHelper implements LocationUtils {
 
     @Override
     public boolean updateLocation(EquipmentLocation location) {
-        String sql = "update Equipment set (width = ? ,height = ?,leftMargin = ?,topMargin = ?)  where _id = ?";
-        return update(sql, new Object[]{location.getWidth(), location.getHeight(), location.getLeftMargin(),
-                location.getTopMargin(), location.getfId()});
+        String sql = "update EquipmentLocation set leftMargin = ?,topMargin = ?,dt = (datetime('now','localtime')) where _id = ?";
+        return update(sql, new Object[]{location.getLeftMargin(),location.getTopMargin(), location.getId()});
     }
 
     @Override
     public EquipmentLocation findLocation(String fk) {
-        String sql = "select width,height,leftMargin,topMargin from EquipmentLocation where fk = ?";
+        String sql = "select _id,width,height,leftMargin,topMargin from EquipmentLocation where fk = ?";
         Cursor cursor = query(sql, new String[]{fk});
         while (cursor.moveToNext()) {
-            return new EquipmentLocation(fk,
+            return new EquipmentLocation(
+                    cursor.getInt(cursor.getColumnIndex("_id")),
+                    fk,
                     cursor.getInt(cursor.getColumnIndex("width")),
                     cursor.getInt(cursor.getColumnIndex("height")),
                     cursor.getInt(cursor.getColumnIndex("leftMargin")),

@@ -5,8 +5,11 @@ import android.support.v7.view.menu.MenuPopupHelper;
 import android.support.v7.widget.PopupMenu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.sunline.qi.activity.R;
+import com.sunline.qi.db.impl.LocationDaoImpl;
+import com.sunline.qi.entity.EquipmentLocation;
 
 import java.lang.reflect.Field;
 
@@ -16,16 +19,14 @@ import java.lang.reflect.Field;
 public class EquipmentOnClickListenerImpl implements View.OnClickListener {
     private Context mContext;
 
-    public EquipmentOnClickListenerImpl(Context context) {
-        mContext = context;
-    }
-
     @Override
     public void onClick(View v) {
         //if (v.getId()==R.id.)
         showPopupMenu(v);
     }
-    private void showPopupMenu(View view) {
+    private void showPopupMenu(final View view) {
+        mContext = view.getContext();
+
         // View当前PopupMenu显示的相对View的位置
         PopupMenu popupMenu = new PopupMenu(mContext, view);
         // menu布局
@@ -49,12 +50,21 @@ public class EquipmentOnClickListenerImpl implements View.OnClickListener {
 
                         break;
                     case R.id.menu_setting_info:
+
+                        break;
+                    //TODO 更新设备位置
+                    case R.id.menu_setting_move:
+
+                        view.setOnTouchListener(new EquipmentOnTouchListenerImpl());
+
+                        break;
+                    case R.id.menu_setting_drop:
                         break;
                 }
                 return true;
             }
         });
-        popupMenu.show();
 
+        popupMenu.show();
     }
 }

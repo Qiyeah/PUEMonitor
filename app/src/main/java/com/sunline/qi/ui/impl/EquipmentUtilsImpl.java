@@ -1,21 +1,18 @@
-package com.sunline.qi.utils.impl;
+package com.sunline.qi.ui.impl;
 
 import android.content.Context;
-import android.support.v7.widget.PopupMenu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.sunline.qi.activity.R;
 import com.sunline.qi.db.impl.EquipmentDaoImpl;
 import com.sunline.qi.db.impl.LocationDaoImpl;
 import com.sunline.qi.entity.Equipment;
 import com.sunline.qi.entity.EquipmentLocation;
 import com.sunline.qi.listener.EquipmentOnClickListenerImpl;
 import com.sunline.qi.listener.EquipmentOnTouchListenerImpl;
-import com.sunline.qi.utils.BaseEquipmentUtils;
+import com.sunline.qi.ui.BaseEquipmentUtils;
 import com.sunline.qi.utils.IDUtils;
 
 import java.util.ArrayList;
@@ -36,14 +33,14 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
         EquipmentDaoImpl dbUtils = new EquipmentDaoImpl(context);
         Button button = new Button(context);
         button.setText(equipment.getName());
-
+        button.setId(location.getId());
         int width = location.getWidth();
         int height = location.getHeight();
         int xAxis = location.getLeftMargin();
         int yAxis = location.getTopMargin();
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width,height);
-        params.leftMargin = location.getLeftMargin();
-        params.topMargin = location.getTopMargin();
+        params.leftMargin = xAxis;
+        params.topMargin = yAxis;
         button.setLayoutParams(params);
         boolean flag = false;
         try {
@@ -53,13 +50,12 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
         }
         if (flag){
             LocationDaoImpl locationDao = new LocationDaoImpl(context);
-            locationDao.addLocation(new EquipmentLocation(IDUtils.generateRID(),
-                    equipment.getId(), width, height, xAxis, yAxis));
+            locationDao.addLocation(location);
             /**
              * 给创建的控制添加监听
              */
-            button.setOnClickListener(new EquipmentOnClickListenerImpl(mContext));
-            button.setOnTouchListener(new EquipmentOnTouchListenerImpl(mContext, width, height));
+            button.setOnClickListener(new EquipmentOnClickListenerImpl());
+            //button.setOnTouchListener(new EquipmentOnTouchListenerImpl(mContext, width, height));
             return button;
         }
        return null;
@@ -87,12 +83,13 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
     @Override
     public List<Button> loadEquipments(Context context) {
         List<Button> list = new ArrayList<>();
-        EquipmentDaoImpl equipmentUtils = new EquipmentDaoImpl(context);
-        LocationDaoImpl locationUtils = new LocationDaoImpl(context);
-        List<Equipment> equipments = equipmentUtils.findAll();
+        EquipmentDaoImpl equipmentDao = new EquipmentDaoImpl(context);
+        LocationDaoImpl locationDao = new LocationDaoImpl(context);
+        List<Equipment> equipments = equipmentDao.findAll();
         if (null != equipments && 0 < equipments.size()){
             for (Equipment equipment : equipments) {
-                EquipmentLocation location = locationUtils.findLocation(equipment.getId());
+                EquipmentLocation location = locationDao.findLocation(equipment.getId());
+//                Toast.makeText(mContext, "id = "+location.getId(), Toast.LENGTH_SHORT).show();
                 list.add(loadEquipment(equipment.getName(),location));
             }
             return list;
@@ -109,9 +106,15 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
         params.leftMargin = location.getLeftMargin();
         params.topMargin = location.getTopMargin();
         button.setLayoutParams(params);
-        button.setOnTouchListener(new EquipmentOnTouchListenerImpl(mContext,location.getWidth(),location.getHeight()));
-        button.setOnClickListener(new EquipmentOnClickListenerImpl(mContext));
+        //button.setOnTouchListener(new EquipmentOnTouchListenerImpl(mContext,location.getWidth(),location.getHeight()));
+        button.setOnClickListener(new EquipmentOnClickListenerImpl());
         return button;
+    }
+
+    @Override
+    public boolean updateLocation(EquipmentLocation location) {
+
+        return false;
     }
 
 }

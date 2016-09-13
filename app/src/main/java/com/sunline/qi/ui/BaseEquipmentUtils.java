@@ -1,4 +1,4 @@
-package com.sunline.qi.utils;
+package com.sunline.qi.ui;
 
 import android.content.Context;
 import android.text.Layout;
@@ -20,4 +20,5 @@ public interface BaseEquipmentUtils {
     Equipment findEquipments(Context context, String id);
     List<Button> loadEquipments(Context context);
     Button loadEquipment(String name,  EquipmentLocation location);
+    boolean updateLocation(EquipmentLocation  location);
 }

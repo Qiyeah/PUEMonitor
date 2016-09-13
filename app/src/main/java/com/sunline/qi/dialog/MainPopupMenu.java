@@ -20,7 +20,7 @@ import com.sunline.qi.entity.Equipment;
 import com.sunline.qi.entity.EquipmentLocation;
 import com.sunline.qi.tag.EquipmentMainTag;
 import com.sunline.qi.utils.IDUtils;
-import com.sunline.qi.utils.impl.EquipmentUtilsImpl;
+import com.sunline.qi.ui.impl.EquipmentUtilsImpl;
 
 /**
  * Created by sunline on 2016/9/10.
@@ -32,6 +32,8 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
     private Equipment mEquipment;
     private EquipmentLocation mLocation;
     private View mView;
+    private Button button;
+    private EquipmentUtilsImpl utils;
     public MainPopupMenu(Context context) {
         super(context);
         mContext = context;
@@ -61,9 +63,27 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
         title.setBackgroundColor(R.color.colorPrimary);
         setCustomTitle(title);
         //builder.setTitle(R.string.content_menu_title);
+        Spinner spinner = (Spinner) mView.findViewById(R.id.eType);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(mContext,"position:"+position,Toast.LENGTH_LONG).show();
+                if (0 == position) {
+                    mEquipment.setId(IDUtils.getId(IDUtils.AC));
+                } else if (1 == position) {
+                    mEquipment.setId(IDUtils.getId(IDUtils.DC));
+                }
+                System.out.println("执行到了这里");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         /**
-         * 设置自定义内容
+         * 设置自定义视图
          */
         setView(mView);
         setCancelable(false);
@@ -82,7 +102,6 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
                 if (null == tag) {
                     tag = new EquipmentMainTag();
                     tag.isOpen = (Switch) mView.findViewById(R.id.eState);
-                    tag.type = (Spinner) mView.findViewById(R.id.eType);
                     tag.name = (EditText) mView.findViewById(R.id.eName);
                     tag.port = (EditText) mView.findViewById(R.id.port);
                     tag.rate = (EditText) mView.findViewById(R.id.rate);
@@ -107,23 +126,6 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
                         } else {
                             mEquipment.setSwitch("0");
                         }
-                    }
-                });
-                tag.type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(mContext,"position:"+position,Toast.LENGTH_LONG).show();
-                        if (0 == position) {
-                            mEquipment.setId(IDUtils.getId(IDUtils.AC));
-                        } else if (1 == position) {
-                            mEquipment.setId(IDUtils.getId(IDUtils.DC));
-                        }
-                        System.out.println("执行到了这里");
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
                     }
                 });
 
@@ -166,26 +168,26 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
                 mLocation.setHeight(str2Integer(height));
                 mLocation.setLeftMargin(str2Integer(xAxis));
                 mLocation.setTopMargin(str2Integer(yAxis));
-
+/*
 
                 Toast.makeText(mContext, "ID:"+mEquipment.getId()
-                        + "\nRID:" + "" + mEquipment.getRid()
-                        + "\nName" + mEquipment.getName()
-                        + "\nPort:" + mEquipment.getPort()
-                        + "\nRate:" + mEquipment.getRate()
-                        + "\nAddr:" + mEquipment.getAddr()
-                        + "\nData:" + mEquipment.getDataBits()
-                        + "\nStop:" + mEquipment.getStopBits()
-                        + "\nState:" + mEquipment.getSwitch()
-                        + "\nDelay:" + mEquipment.getDelay()
-                        + "\nLID:" + mLocation.getId()
-                        + "\nWidth:" + mLocation.getWidth()
-                        + "\nHeight:" + mLocation.getHeight()
-                        + "\nxAxis:" + mLocation.getLeftMargin()
-                        + "\nyAxis:" + mLocation.getTopMargin()
-                        , Toast.LENGTH_LONG).show();
-                EquipmentUtilsImpl utils = new EquipmentUtilsImpl(mContext);
-                Button button = utils.createEquipments(mContext,mEquipment,mLocation);
+                                + "\nRID:" + "" + mEquipment.getRid()
+                                + "\nName" + mEquipment.getName()
+                                + "\nPort:" + mEquipment.getPort()
+                                + "\nRate:" + mEquipment.getRate()
+                                + "\nAddr:" + mEquipment.getAddr()
+                                + "\nData:" + mEquipment.getDataBits()
+                                + "\nStop:" + mEquipment.getStopBits()
+                                + "\nState:" + mEquipment.getSwitch()
+                                + "\nDelay:" + mEquipment.getDelay()
+                                + "\nLID:" + mLocation.getId()
+                                + "\nWidth:" + mLocation.getWidth()
+                                + "\nHeight:" + mLocation.getHeight()
+                                + "\nxAxis:" + mLocation.getLeftMargin()
+                                + "\nyAxis:" + mLocation.getTopMargin()
+                        , Toast.LENGTH_LONG).show();*/
+                utils = new EquipmentUtilsImpl(mContext);
+                button = utils.createEquipments(mContext,mEquipment,mLocation);
                 callBack(button);
             }
         });

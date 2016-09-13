@@ -1,11 +1,13 @@
 package com.sunline.qi.listener;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.sunline.qi.db.impl.LocationDaoImpl;
+import com.sunline.qi.entity.EquipmentLocation;
 import com.sunline.qi.utils.ScreenUtils;
 
 import java.util.Calendar;
@@ -19,43 +21,30 @@ public class EquipmentOnTouchListenerImpl implements View.OnTouchListener {
     private long stop = 0;
     private int tempX;
     private int tempY;
-    private RelativeLayout mLayout;
-    private int mId;
     private Context mContext;
-    private boolean isDelete = false;
-    private boolean isOpen = true;
-    private LayoutInflater mInflater;
-    private int btnId = 0;
     private int mScreenWidth,mScreenHeight, mWidth, mHeight;
     private ScreenUtils mScreenUtils ;
-    private int rows = 10;
-    private int cols = 15;
     private int leftMargin,topMargin;
+    private EquipmentLocation location;
 
-
-    public EquipmentOnTouchListenerImpl(Context context,int width,int height) {
-        mContext = context;
-        mScreenUtils = new ScreenUtils(context);
-        mScreenWidth = mScreenUtils.getScreenWidth();
-        mScreenHeight = mScreenUtils.getScreenHeight();
-        mWidth = width;
-        mHeight = height;
-    }
-
-    public EquipmentOnTouchListenerImpl(LayoutInflater inflater, Context context,
-                                        RelativeLayout layout, int id) {
-        mLayout = layout;
-        mContext = context;
-        mInflater = inflater;
-        mId = id;
+    public EquipmentOnTouchListenerImpl() {
 
     }
+
     @Override
-    public boolean onTouch(final View v, MotionEvent event) {
+    public boolean onTouch(View v, MotionEvent event) {
+        mContext = v.getContext();
+        mScreenUtils = new ScreenUtils(mContext);
+        mScreenWidth = mScreenUtils.getScreenWidth();
+        mScreenHeight = mScreenUtils.getScreenHeight()-50;
+        mWidth = v.getWidth();
+        mHeight = v.getHeight();
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) v
                 .getLayoutParams();
         int x = (int) event.getRawX();
         int y = (int) event.getRawY();
+        location = new EquipmentLocation();
+        location.setId(v.getId());
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 start = Calendar.getInstance().getTimeInMillis();
@@ -64,12 +53,22 @@ public class EquipmentOnTouchListenerImpl implements View.OnTouchListener {
                 break;
             case MotionEvent.ACTION_UP:
                 stop = Calendar.getInstance().getTimeInMillis();
+                location.setId(v.getId());
+                location.setLeftMargin(leftMargin);
+                location.setTopMargin(topMargin);
+                LocationDaoImpl dao = new LocationDaoImpl(mContext);
+                Toast.makeText(mContext, "id = "+location.getId()+" xAxis = "+location.getLeftMargin()+" yAxis = "+location.getTopMargin(), Toast.LENGTH_SHORT).show();
+                boolean flag = dao.updateLocation(location);
+                if (flag){
+                    Toast.makeText(mContext, "设备位置更新成功", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
                 tempX = x - layoutParams.leftMargin;
                 tempY = y - layoutParams.topMargin;
                 break;
             case MotionEvent.ACTION_POINTER_UP:
+
                 break;
             case MotionEvent.ACTION_MOVE:
                 leftMargin = x - tempX;
@@ -100,32 +99,4 @@ public class EquipmentOnTouchListenerImpl implements View.OnTouchListener {
         //mLayout.invalidate();
         return false;
     }
-
-
-
 }
-/*if (1200 <= (stop - start)) {
-                    btnId = v.getId();
-                    //初始化设备参数列表
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                    builder.setTitle("设备编辑器");
-                    LayoutInflater inflater = LayoutInflater.from(mContext);
-                    View view  = inflater.inflate(R.layout.support_simple_spinner_dropdown_item,null,false);
-                    builder.setView(view);
-                    builder.setCancelable(false);
-                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.show();
-
-                }*/

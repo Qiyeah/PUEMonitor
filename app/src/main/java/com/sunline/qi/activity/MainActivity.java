@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 
 import com.sunline.qi.dialog.MainPopupMenu;
 import com.sunline.qi.entity.Equipment;
-import com.sunline.qi.utils.impl.EquipmentUtilsImpl;
+import com.sunline.qi.ui.impl.EquipmentUtilsImpl;
 
 import java.util.List;
 
