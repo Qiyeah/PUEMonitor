@@ -12,5 +12,6 @@ public interface EquipmentUtils {
     boolean deleteEquipment(String id);
     boolean updateEquipment(Equipment equipment);
     Equipment findEquipment(String id);
+    Equipment findEquipment(int rid);
     List<Equipment> findAll();
 }

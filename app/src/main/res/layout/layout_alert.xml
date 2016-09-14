@@ -57,6 +57,7 @@
                     android:id="@id/port"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="COM1"
                     />
             </TableRow>
             <TableRow>
@@ -67,8 +68,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
                 <EditText
                     android:id="@id/rate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/NumText"
+                    android:hint="9600"
                     />
             </TableRow>
             <TableRow>
@@ -79,8 +80,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
                 <EditText
                     android:id="@id/addr"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:hint="01"
+                    style="@style/NumText"
                     />
             </TableRow>
             <TableRow>
@@ -91,10 +92,9 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
                 <EditText
                     android:id="@id/timeout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="200"
-                    android:numeric="integer"
+                    style="@style/NumText"
+                    android:text="200"
+
                     />
             </TableRow>
             <TableRow>
@@ -105,9 +105,9 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
                 <EditText
                     android:id="@id/data"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="8"
+                    style="@style/NumText"
+                    android:text="8"
+
                     />
             </TableRow>
             <TableRow>
@@ -118,9 +118,9 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
                 <EditText
                     android:id="@id/stop"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="1"
+                    style="@style/NumText"
+                    android:text="1"
+
                     />
             </TableRow>
             <TableRow>
@@ -131,9 +131,9 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
                 <EditText
                     android:id="@id/parity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="0"
+                    style="@style/NumText"
+                    android:text="0"
+
                     />
             </TableRow>
             <TableRow>
@@ -144,9 +144,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
                 <EditText
                     android:id="@id/delayed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="0"
+                    style="@style/NumText"
+                    android:text="0"
                     />
             </TableRow>
             <TableRow>
@@ -157,9 +156,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
                 <EditText
                     android:id="@id/eWidth"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="200"
+                    style="@style/NumText"
+                    android:text="200"
                     />
             </TableRow>
             <TableRow>
@@ -170,9 +168,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
                 <EditText
                     android:id="@id/eHeight"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="100"
+                    style="@style/NumText"
+                    android:text="100"
                     />
             </TableRow>
             <TableRow>
@@ -183,9 +180,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
                 <EditText
                     android:id="@id/xAxis"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="100"
+                    style="@style/NumText"
+                    android:text="100"
                     />
             </TableRow>
             <TableRow>
@@ -196,9 +192,8 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
                 <EditText
                     android:id="@id/yAxis"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="100"
+                    style="@style/NumText"
+                    android:text="100"
                     />
             </TableRow>
         </TableLayout>

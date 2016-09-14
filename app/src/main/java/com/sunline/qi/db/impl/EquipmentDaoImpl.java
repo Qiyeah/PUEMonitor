@@ -2,6 +2,7 @@ package com.sunline.qi.db.impl;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.widget.Toast;
 
 import com.sunline.qi.db.EquipmentUtils;
 import com.sunline.qi.db.DBHelper;
@@ -14,8 +15,10 @@ import java.util.List;
  * Created by sunline on 2016/9/9.
  */
 public class EquipmentDaoImpl extends DBHelper implements EquipmentUtils {
+    private Context mContext;
     public EquipmentDaoImpl(Context context) {
         super(context);
+        mContext = context;
     }
 
     @Override
@@ -34,22 +37,26 @@ public class EquipmentDaoImpl extends DBHelper implements EquipmentUtils {
 
     @Override
     public boolean deleteEquipment(String id) {
-        String sql = "delete * from Equipment where _id = ?";
+        String sql = "delete from Equipment where _id = ?";
         return update(sql,id);
     }
 
     @Override
     public boolean updateEquipment(Equipment equipment) {
-        String sql = "update set (name = ? ,port = ?,rate = ?,addr = ?,timeout = ?,data = ?,stop = ?," +
-                "parity = ?,switch = ?,delayed = ? ,dt = ?) from Equipment where _id = ?";
+        String name = equipment.getName();
+        String port = equipment.getPort();
+        String rate = equipment.getRate();
+        Toast.makeText(mContext, "name = "+name+" port = "+port+" rate = "+rate, Toast.LENGTH_SHORT).show();
+        String sql = "update Equipment set name = ? ,port = ?,rate = ?,addr = ?,timeout = ?,data = ?,stop = ?," +
+                "parity = ?,switch = ?,delayed = ? ,dt = (datetime('now','localtime')) where _id = ?";
         return update(sql, new Object[]{equipment.getName(), equipment.getPort(), equipment.getRate(),
                 equipment.getAddr(),equipment.getTimeOut(), equipment.getDataBits(), equipment.getStopBits(),
-                equipment.getParity(),equipment.getSwitch(), equipment.getDelay(),equipment.getDate(), equipment.getId()});
+                equipment.getParity(),equipment.getSwitch(), equipment.getDelay(), equipment.getId()});
     }
 
     @Override
     public Equipment findEquipment( String id) {
-        String sql = "select (id,name,port,rate,addr,timeout,data,stop,parity,switch,delayed) " +
+        String sql = "select id,name,port,rate,addr,timeout,data,stop,parity,switch,delayed " +
                 "from Equipment where _id = ?";
         Cursor cursor = query(sql,new String[]{id});
         Equipment equipment = new Equipment();
@@ -65,6 +72,28 @@ public class EquipmentDaoImpl extends DBHelper implements EquipmentUtils {
             equipment.setParity(cursor.getString(cursor.getColumnIndex("parity")));
             equipment.setSwitch(cursor.getString(cursor.getColumnIndex("switch")));
             equipment.setDelay(cursor.getString(cursor.getColumnIndex("delayed")));
+        }
+        return equipment;
+    }
+
+    @Override
+    public Equipment findEquipment(int rid) {
+        String sql = "select _id,name,port,rate,addr,timeout,data,stop,parity,switch,delayed " +
+                "from Equipment where rid = ?";
+        Cursor cursor = query(sql,Integer.toString(rid));
+        Equipment equipment = new Equipment();
+        while (cursor.moveToNext()){
+            equipment.setId(cursor.getString(cursor.getColumnIndex("_id")).trim());
+            equipment.setName(cursor.getString(cursor.getColumnIndex("name")).trim());
+            equipment.setPort(cursor.getString(cursor.getColumnIndex("port")).trim());
+            equipment.setRate(cursor.getString(cursor.getColumnIndex("rate")).trim());
+            equipment.setAddr(cursor.getString(cursor.getColumnIndex("addr")).trim());
+            equipment.setTimeOut(cursor.getString(cursor.getColumnIndex("timeout")).trim());
+            equipment.setDataBits(cursor.getString(cursor.getColumnIndex("data")).trim());
+            equipment.setStopBits(cursor.getString(cursor.getColumnIndex("stop")).trim());
+            equipment.setParity(cursor.getString(cursor.getColumnIndex("parity")).trim());
+            equipment.setSwitch(cursor.getString(cursor.getColumnIndex("switch")).trim());
+            equipment.setDelay(cursor.getString(cursor.getColumnIndex("delayed")).trim());
         }
         return equipment;
     }

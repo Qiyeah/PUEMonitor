@@ -16,7 +16,7 @@ public class Equipment {
     private String mDataBits;
     private String mStopBits;
     private String mParity;
-    private String mSwitch;
+    private String mSwitch = "0";
     private String mDelay;
 
 

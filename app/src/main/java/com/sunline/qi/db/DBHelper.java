@@ -63,8 +63,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 "PRIMARY KEY (_id) " +
                 ")";
         db.execSQL(sql);
-        sql = "CREATE TABLE EquipmentLocation (" +
-                "_id CHAR(32) NOT NULL," +
+        sql = "CREATE TABLE Location (" +
+                "_id integer NOT NULL," +
                 "fk CHAR(32) NOT NULL," +
                 "width integer NOT  NULL," +
                 "height integer NOT  NULL," +

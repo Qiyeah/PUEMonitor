@@ -62,7 +62,7 @@ public class MainActivity extends Activity {
                 }
             }
         };
-        dialog.showDialog();
+        dialog.showDialog(MainPopupMenu.CREATE);
     }
     private class ViewTag{
 

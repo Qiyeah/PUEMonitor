@@ -7,7 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.sunline.qi.db.impl.LocationDaoImpl;
-import com.sunline.qi.entity.EquipmentLocation;
+import com.sunline.qi.entity.Location;
 import com.sunline.qi.utils.ScreenUtils;
 
 import java.util.Calendar;
@@ -25,7 +25,7 @@ public class EquipmentOnTouchListenerImpl implements View.OnTouchListener {
     private int mScreenWidth,mScreenHeight, mWidth, mHeight;
     private ScreenUtils mScreenUtils ;
     private int leftMargin,topMargin;
-    private EquipmentLocation location;
+    private Location location;
 
     public EquipmentOnTouchListenerImpl() {
 
@@ -43,7 +43,7 @@ public class EquipmentOnTouchListenerImpl implements View.OnTouchListener {
                 .getLayoutParams();
         int x = (int) event.getRawX();
         int y = (int) event.getRawY();
-        location = new EquipmentLocation();
+        location = new Location();
         location.setId(v.getId());
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -54,10 +54,10 @@ public class EquipmentOnTouchListenerImpl implements View.OnTouchListener {
             case MotionEvent.ACTION_UP:
                 stop = Calendar.getInstance().getTimeInMillis();
                 location.setId(v.getId());
-                location.setLeftMargin(leftMargin);
-                location.setTopMargin(topMargin);
+                location.setxAxis(leftMargin);
+                location.setyAxis(topMargin);
                 LocationDaoImpl dao = new LocationDaoImpl(mContext);
-                Toast.makeText(mContext, "id = "+location.getId()+" xAxis = "+location.getLeftMargin()+" yAxis = "+location.getTopMargin(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "id = "+location.getId()+" xAxis = "+location.getxAxis()+" yAxis = "+location.getyAxis(), Toast.LENGTH_SHORT).show();
                 boolean flag = dao.updateLocation(location);
                 if (flag){
                     Toast.makeText(mContext, "设备位置更新成功", Toast.LENGTH_SHORT).show();

@@ -3,32 +3,32 @@ package com.sunline.qi.entity;
 /**
  * Created by qi on 2016/9/8.
  */
-public class EquipmentLocation {
+public class Location {
     private int mId ;
     private String fId;
     private int mWidth = 0;
     private int mHeight = 0;
-    private int leftMargin = 0;
-    private int topMargin = 0;
+    private int xAxis = 0;
+    private int yAxis = 0;
 
-    public EquipmentLocation() {
+    public Location() {
     }
 
-    public EquipmentLocation(String fId, int width, int height, int leftMargin, int topMargin) {
+    public Location(String fId, int width, int height, int xAxis, int yAxis) {
         this.fId = fId;
         mWidth = width;
         mHeight = height;
-        this.leftMargin = leftMargin;
-        this.topMargin = topMargin;
+        this.xAxis = xAxis;
+        this.yAxis = yAxis;
     }
 
-    public EquipmentLocation(int id, String fId, int width, int height, int leftMargin, int topMargin) {
+    public Location(int id, String fId, int width, int height, int xAxis, int yAxis) {
         mId = id;
         this.fId = fId;
         mWidth = width;
         mHeight = height;
-        this.leftMargin = leftMargin;
-        this.topMargin = topMargin;
+        this.xAxis = xAxis;
+        this.yAxis = yAxis;
     }
 
     public int getId() {
@@ -63,19 +63,19 @@ public class EquipmentLocation {
         mHeight = height;
     }
 
-    public int getLeftMargin() {
-        return leftMargin;
+    public int getxAxis() {
+        return xAxis;
     }
 
-    public void setLeftMargin(int leftMargin) {
-        this.leftMargin = leftMargin;
+    public void setxAxis(int xAxis) {
+        this.xAxis = xAxis;
     }
 
-    public int getTopMargin() {
-        return topMargin;
+    public int getyAxis() {
+        return yAxis;
     }
 
-    public void setTopMargin(int topMargin) {
-        this.topMargin = topMargin;
+    public void setyAxis(int yAxis) {
+        this.yAxis = yAxis;
     }
 }
