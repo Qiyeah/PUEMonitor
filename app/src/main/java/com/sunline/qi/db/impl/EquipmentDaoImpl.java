@@ -43,10 +43,17 @@ public class EquipmentDaoImpl extends DBHelper implements EquipmentUtils {
 
     @Override
     public boolean updateEquipment(Equipment equipment) {
-        String name = equipment.getName();
-        String port = equipment.getPort();
-        String rate = equipment.getRate();
-        Toast.makeText(mContext, "name = "+name+" port = "+port+" rate = "+rate, Toast.LENGTH_SHORT).show();
+        System.out.println("ID:" + equipment.getId()
+                + "\nRID:" + "" + equipment.getRid()
+                + "\nName" + equipment.getName()
+                + "\nPort:" + equipment.getPort()
+                + "\nRate:" + equipment.getRate()
+                + "\nAddr:" + equipment.getAddr()
+                + "\nData:" + equipment.getDataBits()
+                + "\nStop:" + equipment.getStopBits()
+                + "\nState:" + equipment.getSwitch()
+                + "\nDelay:" + equipment.getDelay()
+             );
         String sql = "update Equipment set name = ? ,port = ?,rate = ?,addr = ?,timeout = ?,data = ?,stop = ?," +
                 "parity = ?,switch = ?,delayed = ? ,dt = (datetime('now','localtime')) where _id = ?";
         return update(sql, new Object[]{equipment.getName(), equipment.getPort(), equipment.getRate(),
