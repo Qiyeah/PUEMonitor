@@ -2,11 +2,10 @@ package com.sunline.qi.db.impl;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.widget.Toast;
 
 import com.sunline.qi.db.EquipmentUtils;
 import com.sunline.qi.db.DBHelper;
-import com.sunline.qi.entity.Equipment;
+import com.sunline.qi.entity.AS_Equipment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +21,15 @@ public class EquipmentDaoImpl extends DBHelper implements EquipmentUtils {
     }
 
     @Override
-    public boolean addEquipment(Equipment equipment) {
+    public boolean addEquipment(AS_Equipment ASEquipment) {
         String sql = "insert into Equipment (" +
                 "_id,rid,name,port,rate,addr,timeout,data,stop,parity,switch,delayed" +
                 ") values(" +
                 "?,?,?,?,?,?,?,?,?,?,?,?)";
-        if (equipment.isNull()){
-            return update(sql, new Object[]{equipment.getId(),equipment.getRid(), equipment.getName(), equipment.getPort(), equipment.getRate(),
-                    equipment.getAddr(),equipment.getTimeOut(), equipment.getDataBits(), equipment.getStopBits(),
-                    equipment.getParity(),equipment.getSwitch(), equipment.getDelay()});
+        if (ASEquipment.isNull()){
+            return update(sql, new Object[]{ASEquipment.getId(), ASEquipment.getRid(), ASEquipment.getName(), ASEquipment.getPort(), ASEquipment.getRate(),
+                    ASEquipment.getAddr(), ASEquipment.getTimeOut(), ASEquipment.getDataBits(), ASEquipment.getStopBits(),
+                    ASEquipment.getParity(), ASEquipment.getSwitch(), ASEquipment.getDelay()});
         }
         return false;
     }
@@ -42,90 +41,90 @@ public class EquipmentDaoImpl extends DBHelper implements EquipmentUtils {
     }
 
     @Override
-    public boolean updateEquipment(Equipment equipment) {
-        System.out.println("ID:" + equipment.getId()
-                + "\nRID:" + "" + equipment.getRid()
-                + "\nName" + equipment.getName()
-                + "\nPort:" + equipment.getPort()
-                + "\nRate:" + equipment.getRate()
-                + "\nAddr:" + equipment.getAddr()
-                + "\nData:" + equipment.getDataBits()
-                + "\nStop:" + equipment.getStopBits()
-                + "\nState:" + equipment.getSwitch()
-                + "\nDelay:" + equipment.getDelay()
+    public boolean updateEquipment(AS_Equipment ASEquipment) {
+        System.out.println("ID:" + ASEquipment.getId()
+                + "\nRID:" + "" + ASEquipment.getRid()
+                + "\nName" + ASEquipment.getName()
+                + "\nPort:" + ASEquipment.getPort()
+                + "\nRate:" + ASEquipment.getRate()
+                + "\nAddr:" + ASEquipment.getAddr()
+                + "\nData:" + ASEquipment.getDataBits()
+                + "\nStop:" + ASEquipment.getStopBits()
+                + "\nState:" + ASEquipment.getSwitch()
+                + "\nDelay:" + ASEquipment.getDelay()
              );
         String sql = "update Equipment set name = ? ,port = ?,rate = ?,addr = ?,timeout = ?,data = ?,stop = ?," +
-                "parity = ?,switch = ?,delayed = ? ,dt = (datetime('now','localtime')) where _id = ?";
-        return update(sql, new Object[]{equipment.getName(), equipment.getPort(), equipment.getRate(),
-                equipment.getAddr(),equipment.getTimeOut(), equipment.getDataBits(), equipment.getStopBits(),
-                equipment.getParity(),equipment.getSwitch(), equipment.getDelay(), equipment.getId()});
+                "parity = ?,switch = ?,delayed = ? ,dt = (datetime('now','localtime')) where rid = ?";
+        return update(sql, new Object[]{ASEquipment.getName(), ASEquipment.getPort(), ASEquipment.getRate(),
+                ASEquipment.getAddr(), ASEquipment.getTimeOut(), ASEquipment.getDataBits(), ASEquipment.getStopBits(),
+                ASEquipment.getParity(), ASEquipment.getSwitch(), ASEquipment.getDelay(), ASEquipment.getRid()});
     }
 
     @Override
-    public Equipment findEquipment( String id) {
+    public AS_Equipment findEquipment(String id) {
         String sql = "select id,name,port,rate,addr,timeout,data,stop,parity,switch,delayed " +
                 "from Equipment where _id = ?";
         Cursor cursor = query(sql,new String[]{id});
-        Equipment equipment = new Equipment();
+        AS_Equipment ASEquipment = new AS_Equipment();
         while (0 < cursor.getCount()){
-            equipment.setId(cursor.getString(cursor.getColumnIndex("_id")));
-            equipment.setName(cursor.getString(cursor.getColumnIndex("name")));
-            equipment.setPort(cursor.getString(cursor.getColumnIndex("port")));
-            equipment.setRate(cursor.getString(cursor.getColumnIndex("rate")));
-            equipment.setAddr(cursor.getString(cursor.getColumnIndex("addr")));
-            equipment.setTimeOut(cursor.getString(cursor.getColumnIndex("timeout")));
-            equipment.setDataBits(cursor.getString(cursor.getColumnIndex("data")));
-            equipment.setStopBits(cursor.getString(cursor.getColumnIndex("stop")));
-            equipment.setParity(cursor.getString(cursor.getColumnIndex("parity")));
-            equipment.setSwitch(cursor.getString(cursor.getColumnIndex("switch")));
-            equipment.setDelay(cursor.getString(cursor.getColumnIndex("delayed")));
+            ASEquipment.setId(cursor.getString(cursor.getColumnIndex("_id")));
+            ASEquipment.setName(cursor.getString(cursor.getColumnIndex("name")));
+            ASEquipment.setPort(cursor.getString(cursor.getColumnIndex("port")));
+            ASEquipment.setRate(cursor.getString(cursor.getColumnIndex("rate")));
+            ASEquipment.setAddr(cursor.getString(cursor.getColumnIndex("addr")));
+            ASEquipment.setTimeOut(cursor.getString(cursor.getColumnIndex("timeout")));
+            ASEquipment.setDataBits(cursor.getString(cursor.getColumnIndex("data")));
+            ASEquipment.setStopBits(cursor.getString(cursor.getColumnIndex("stop")));
+            ASEquipment.setParity(cursor.getString(cursor.getColumnIndex("parity")));
+            ASEquipment.setSwitch(cursor.getString(cursor.getColumnIndex("switch")));
+            ASEquipment.setDelay(cursor.getString(cursor.getColumnIndex("delayed")));
         }
-        return equipment;
+        return ASEquipment;
     }
 
     @Override
-    public Equipment findEquipment(int rid) {
+    public AS_Equipment findEquipment(int rid) {
         String sql = "select _id,name,port,rate,addr,timeout,data,stop,parity,switch,delayed " +
                 "from Equipment where rid = ?";
         Cursor cursor = query(sql,Integer.toString(rid));
-        Equipment equipment = new Equipment();
+        AS_Equipment ASEquipment = new AS_Equipment();
         while (cursor.moveToNext()){
-            equipment.setId(cursor.getString(cursor.getColumnIndex("_id")).trim());
-            equipment.setName(cursor.getString(cursor.getColumnIndex("name")).trim());
-            equipment.setPort(cursor.getString(cursor.getColumnIndex("port")).trim());
-            equipment.setRate(cursor.getString(cursor.getColumnIndex("rate")).trim());
-            equipment.setAddr(cursor.getString(cursor.getColumnIndex("addr")).trim());
-            equipment.setTimeOut(cursor.getString(cursor.getColumnIndex("timeout")).trim());
-            equipment.setDataBits(cursor.getString(cursor.getColumnIndex("data")).trim());
-            equipment.setStopBits(cursor.getString(cursor.getColumnIndex("stop")).trim());
-            equipment.setParity(cursor.getString(cursor.getColumnIndex("parity")).trim());
-            equipment.setSwitch(cursor.getString(cursor.getColumnIndex("switch")).trim());
-            equipment.setDelay(cursor.getString(cursor.getColumnIndex("delayed")).trim());
+            ASEquipment.setId(cursor.getString(cursor.getColumnIndex("_id")).trim());
+            ASEquipment.setName(cursor.getString(cursor.getColumnIndex("name")).trim());
+            ASEquipment.setPort(cursor.getString(cursor.getColumnIndex("port")).trim());
+            ASEquipment.setRate(cursor.getString(cursor.getColumnIndex("rate")).trim());
+            ASEquipment.setAddr(cursor.getString(cursor.getColumnIndex("addr")).trim());
+            ASEquipment.setTimeOut(cursor.getString(cursor.getColumnIndex("timeout")).trim());
+            ASEquipment.setDataBits(cursor.getString(cursor.getColumnIndex("data")).trim());
+            ASEquipment.setStopBits(cursor.getString(cursor.getColumnIndex("stop")).trim());
+            ASEquipment.setParity(cursor.getString(cursor.getColumnIndex("parity")).trim());
+            ASEquipment.setSwitch(cursor.getString(cursor.getColumnIndex("switch")).trim());
+            ASEquipment.setDelay(cursor.getString(cursor.getColumnIndex("delayed")).trim());
         }
-        return equipment;
+        return ASEquipment;
     }
 
     @Override
-    public List<Equipment> findAll() {
+    public List<AS_Equipment> findAll() {
         String sql = "select * from Equipment";
         Cursor cursor = query(sql);
-        List<Equipment> list = new ArrayList<Equipment>();
+        List<AS_Equipment> list = new ArrayList<AS_Equipment>();
 
         while (cursor.moveToNext()){
-            Equipment equipment = new Equipment();
-            equipment.setId(cursor.getString(cursor.getColumnIndex("_id")));
-            equipment.setRid(cursor.getInt(cursor.getColumnIndex("rid")));
-            equipment.setName(cursor.getString(cursor.getColumnIndex("name")));
-            equipment.setPort(cursor.getString(cursor.getColumnIndex("port")));
-            equipment.setRate(cursor.getString(cursor.getColumnIndex("rate")));
-            equipment.setAddr(cursor.getString(cursor.getColumnIndex("addr")));
-            equipment.setTimeOut(cursor.getString(cursor.getColumnIndex("timeout")));
-            equipment.setDataBits(cursor.getString(cursor.getColumnIndex("data")));
-            equipment.setStopBits(cursor.getString(cursor.getColumnIndex("stop")));
-            equipment.setParity(cursor.getString(cursor.getColumnIndex("parity")));
-            equipment.setSwitch(cursor.getString(cursor.getColumnIndex("switch")));
-            equipment.setDelay(cursor.getString(cursor.getColumnIndex("delayed")));
-            list.add(equipment);
+            AS_Equipment ASEquipment = new AS_Equipment();
+            ASEquipment.setId(cursor.getString(cursor.getColumnIndex("_id")));
+            ASEquipment.setRid(cursor.getInt(cursor.getColumnIndex("rid")));
+            ASEquipment.setName(cursor.getString(cursor.getColumnIndex("name")));
+            ASEquipment.setPort(cursor.getString(cursor.getColumnIndex("port")));
+            ASEquipment.setRate(cursor.getString(cursor.getColumnIndex("rate")));
+            ASEquipment.setAddr(cursor.getString(cursor.getColumnIndex("addr")));
+            ASEquipment.setTimeOut(cursor.getString(cursor.getColumnIndex("timeout")));
+            ASEquipment.setDataBits(cursor.getString(cursor.getColumnIndex("data")));
+            ASEquipment.setStopBits(cursor.getString(cursor.getColumnIndex("stop")));
+            ASEquipment.setParity(cursor.getString(cursor.getColumnIndex("parity")));
+            ASEquipment.setSwitch(cursor.getString(cursor.getColumnIndex("switch")));
+            ASEquipment.setDelay(cursor.getString(cursor.getColumnIndex("delayed")));
+            list.add(ASEquipment);
         }
         return list;
     }

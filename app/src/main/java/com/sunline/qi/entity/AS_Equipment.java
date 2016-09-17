@@ -1,22 +1,24 @@
 package com.sunline.qi.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by sunline on 2016/8/22.
  */
-public class Equipment {
-    private String mId = "";
-    private String mName = "";
-    private String mPort = "";
-    private String mRate = "";
-    private String mAddr = "";
-    private String mTimeOut = "";
-    private String mDataBits = "";
-    private String mStopBits = "";
-    private String mParity = "";
-    private String mState = "";
-    private String mDelay = "";
+public class AS_Equipment {
+    private String mId;
+    private int mRid;
+    private String mName;
+    private String mPort;
+    private String mRate;
+    private String mAddr;
+    private String mTimeOut;
+    private String mDataBits;
+    private String mStopBits;
+    private String mParity;
+    private String mSwitch = "0";
+    private String mDelay;
+
 
     public Date getDate() {
         return mDate;
@@ -28,20 +30,22 @@ public class Equipment {
 
     private Date mDate;
 
-    public Equipment() {
+    public AS_Equipment() {
     }
 
-    public Equipment(String id, String name, String port, String rate, String addr) {
-        mId = id;
-        mName = name;
-        mPort = port;
-        mRate = rate;
-        mAddr = addr;
+
+    public AS_Equipment(String mId, int rId, String mName, String mPort, String mRate, String mAddr) {
+        this.mId = mId;
+        this.mRid = rId;
+        this.mName = mName;
+        this.mPort = mPort;
+        this.mRate = mRate;
+        this.mAddr = mAddr;
     }
 
-    public Equipment(String id, String name, String port,
-                     String rate, String addr, String timeOut, String dataBits,
-                     String stopBits, String parity, String state, String delay) {
+    public AS_Equipment(String id, String name, String port,
+                        String rate, String addr, String timeOut, String dataBits,
+                        String stopBits, String parity, String state, String delay) {
         mId = id;
         mName = name;
         mPort = port;
@@ -51,24 +55,16 @@ public class Equipment {
         mDataBits = dataBits;
         mStopBits = stopBits;
         mParity = parity;
-        mState = state;
+        mSwitch = state;
         mDelay = delay;
     }
 
-    public Equipment(String mId, String mName, String mPort, String mRate, String mAddr, String mTimeOut,
-                     String mDataBits, String mStopBits, String mParity, String mState, String mDelay, Date mDate) {
-        this.mId = mId;
-        this.mName = mName;
-        this.mPort = mPort;
-        this.mRate = mRate;
-        this.mAddr = mAddr;
-        this.mTimeOut = mTimeOut;
-        this.mDataBits = mDataBits;
-        this.mStopBits = mStopBits;
-        this.mParity = mParity;
-        this.mState = mState;
-        this.mDelay = mDelay;
-        this.mDate = mDate;
+    public int getRid() {
+        return mRid;
+    }
+
+    public void setRid(int rid) {
+        mRid = rid;
     }
 
     public void setTimeOut(String timeOut) {
@@ -127,12 +123,12 @@ public class Equipment {
         mAddr = addr;
     }
 
-    public String getState() {
-        return mState;
+    public String getSwitch() {
+        return mSwitch;
     }
 
-    public void setState(String state) {
-        mState = state;
+    public void setSwitch(String state) {
+        mSwitch = state;
     }
 
     public String getDelay() {
@@ -157,5 +153,21 @@ public class Equipment {
 
     public String getParity() {
         return mParity;
+    }
+
+    public Date getmDate() {
+        return new java.sql.Date(System.currentTimeMillis());
+    }
+
+    public void setmDate(Date mDate) {
+        this.mDate = mDate;
+    }
+
+    public boolean isNull() {
+        if (null != mId && null != mName&& null != mPort && null != mRate&& null != mAddr) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

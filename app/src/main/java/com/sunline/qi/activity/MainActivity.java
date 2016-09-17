@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.sunline.qi.dialog.MainPopupMenu;
-import com.sunline.qi.entity.Equipment;
+import com.sunline.qi.entity.AS_Equipment;
 import com.sunline.qi.ui.impl.EquipmentUtilsImpl;
 
 import java.util.List;
@@ -19,12 +19,13 @@ import java.util.List;
  */
 public class MainActivity extends Activity {
     RelativeLayout container;
-    Equipment mEquipment;
+    AS_Equipment mASEquipment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.layout_config);
+        setContentView(R.layout.main);
         super.onCreate(savedInstanceState);
-        container = (RelativeLayout) findViewById(R.id.container);
+        container = (RelativeLayout) findViewById(R.id.main);
+        System.out.println(null == container);
         registerForContextMenu(container);
         initView();
     }

@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.sunline.qi.db.impl.EquipmentDaoImpl;
 import com.sunline.qi.db.impl.LocationDaoImpl;
-import com.sunline.qi.entity.Equipment;
+import com.sunline.qi.entity.AS_Equipment;
 import com.sunline.qi.entity.Location;
 import com.sunline.qi.listener.EquipmentOnClickListenerImpl;
 import com.sunline.qi.ui.BaseEquipmentUtils;
@@ -30,9 +30,9 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
     }
 
     @Override
-    public Button createEquipments(Context context, Equipment equipment, Location location) {
+    public Button createEquipments(Context context, AS_Equipment ASEquipment, Location location) {
         Button button = new Button(context);
-        button.setText(equipment.getName());
+        button.setText(ASEquipment.getName());
         button.setId(location.getId());
         int width = location.getWidth();
         int height = location.getHeight();
@@ -44,7 +44,7 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
         button.setLayoutParams(params);
         boolean flag = false;
         try {
-            flag = dbUtils.addEquipment(equipment);
+            flag = dbUtils.addEquipment(ASEquipment);
         } catch (Exception e) {
             Toast.makeText(mContext, "数据库添加失败！", Toast.LENGTH_LONG).show();
         }
@@ -68,12 +68,12 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
     }
 
     @Override
-    public boolean updateEquipments(Context context, Equipment equipment) {
-        return dbUtils.updateEquipment(equipment);
+    public boolean updateEquipments(Context context, AS_Equipment ASEquipment) {
+        return dbUtils.updateEquipment(ASEquipment);
     }
 
     @Override
-    public Equipment findEquipments(Context context, String id) {
+    public AS_Equipment findEquipments(Context context, String id) {
         return dbUtils.findEquipment(id);
     }
 
@@ -82,12 +82,12 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
         List<Button> list = new ArrayList<>();
         EquipmentDaoImpl equipmentDao = new EquipmentDaoImpl(context);
         LocationDaoImpl locationDao = new LocationDaoImpl(context);
-        List<Equipment> equipments = equipmentDao.findAll();
-        if (null != equipments && 0 < equipments.size()) {
-            for (Equipment equipment : equipments) {
-                Location location = locationDao.findLocation(equipment.getId());
+        List<AS_Equipment> ASEquipments = equipmentDao.findAll();
+        if (null != ASEquipments && 0 < ASEquipments.size()) {
+            for (AS_Equipment ASEquipment : ASEquipments) {
+                Location location = locationDao.findLocation(ASEquipment.getId());
 //                Toast.makeText(mContext, "id = "+location.getId(), Toast.LENGTH_SHORT).show();
-                list.add(loadEquipment(equipment.getName(), location));
+                list.add(loadEquipment(ASEquipment.getName(), location));
             }
             return list;
         }

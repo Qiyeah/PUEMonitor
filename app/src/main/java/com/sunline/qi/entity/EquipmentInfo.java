@@ -6,8 +6,8 @@ package com.sunline.qi.entity;
 public class EquipmentInfo {
     private String mId;
     private int mRoute;
-    private String mRouteName;
-    private int mRouteAttr;
+    private String mPathName;
+    private int mPathAttr;
     private String fId;
     private int mPer;
     private int mSymbol;
@@ -15,21 +15,38 @@ public class EquipmentInfo {
     public EquipmentInfo() {
     }
 
-    public EquipmentInfo(String id, int route, String routeName, String fId) {
-        mId = id;
+    public EquipmentInfo(String foreign, int route, int pathAttr, int per, int symbol) {
+        fId = foreign;
         mRoute = route;
-        mRouteName = routeName;
-        this.fId = fId;
+        mPathAttr = pathAttr;
+        mPer = per;
+        mSymbol = symbol;
     }
 
-    public EquipmentInfo(String id, int route, String routeName, int routeAttr, String fId, int per, int symbol) {
+    public EquipmentInfo(String id , String fId,  int route, String pathName, int pathAttr,int per, int symbol) {
         mId = id;
         mRoute = route;
-        mRouteName = routeName;
-        mRouteAttr = routeAttr;
+        mPathName = pathName;
+        mPathAttr = pathAttr;
         this.fId = fId;
         mPer = per;
         mSymbol = symbol;
+    }
+
+    public int getSymbol() {
+        return mSymbol;
+    }
+
+    public void setSymbol(int symbol) {
+        mSymbol = symbol;
+    }
+
+    public int getPer() {
+        return mPer;
+    }
+
+    public void setPer(int per) {
+        this.mPer = per;
     }
 
     public String getId() {
@@ -48,20 +65,20 @@ public class EquipmentInfo {
         mRoute = route;
     }
 
-    public String getRouteName() {
-        return mRouteName;
+    public String getPathName() {
+        return mPathName;
     }
 
-    public void setRouteName(String routeName) {
-        mRouteName = routeName;
+    public void setPathName(String pathName) {
+        mPathName = pathName;
     }
 
-    public int getRouteAttr() {
-        return mRouteAttr;
+    public int getPathAttr() {
+        return mPathAttr;
     }
 
-    public void setRouteAttr(int routeAttr) {
-        mRouteAttr = routeAttr;
+    public void setPathAttr(int pathAttr) {
+        mPathAttr = pathAttr;
     }
 
     public String getfId() {
@@ -70,21 +87,5 @@ public class EquipmentInfo {
 
     public void setfId(String fId) {
         this.fId = fId;
-    }
-
-    public int getPer() {
-        return mPer;
-    }
-
-    public void setPer(int per) {
-        mPer = per;
-    }
-
-    public int getSymbol() {
-        return mSymbol;
-    }
-
-    public void setSymbol(int symbol) {
-        mSymbol = symbol;
     }
 }
