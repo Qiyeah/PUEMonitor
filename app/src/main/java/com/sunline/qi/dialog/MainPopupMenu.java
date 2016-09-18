@@ -23,6 +23,7 @@ import com.sunline.qi.entity.Equipment;
 import com.sunline.qi.entity.Location;
 import com.sunline.qi.http.HttpUtils;
 import com.sunline.qi.tag.EquipmentMainTag;
+import com.sunline.qi.ui.BaseEquipmentUtils;
 import com.sunline.qi.utils.IDUtils;
 import com.sunline.qi.ui.impl.EquipmentUtilsImpl;
 
@@ -30,8 +31,7 @@ import com.sunline.qi.ui.impl.EquipmentUtilsImpl;
  * Created by sunline on 2016/9/10.
  */
 public abstract class MainPopupMenu extends AlertDialog.Builder {
-    public static final int CREATE = 0x01;
-    public static final int UPDATE = 0x02;
+
     private Context mContext;
     public static final String EQUIPMENT_AC = "1";
     public static final String EQUIPMENT_DC = "2";
@@ -50,7 +50,6 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
         mContext = context;
         mEquipment = new AS_Equipment();
         mLocation = new Location();
-        mView = LayoutInflater.from(mContext).inflate(R.layout.layout_alert, null);
     }
 
     public MainPopupMenu(int id, Context context) {
@@ -61,7 +60,6 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
         mContext = context;
         equipmentDao = new EquipmentDaoImpl(mContext);
         locationDao = new LocationDaoImpl(mContext);
-        mView = LayoutInflater.from(mContext).inflate(R.layout.layout_alert, null);
     }
 
 
@@ -84,6 +82,7 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
          * 设置对话框背景色
          */
         title.setBackgroundColor(R.color.colorPrimary);
+        mView = LayoutInflater.from(mContext).inflate(R.layout.layout_alert, null);
         /**
          * 初始化对话框控件
          */
@@ -103,7 +102,7 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
         /**
          * 设置设备类型
          */
-        if (CREATE == type) {
+        if (BaseEquipmentUtils.CREATE == type) {
             tag.type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -121,7 +120,7 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
                 }
             });
         }
-        if (UPDATE == type) {
+        if (BaseEquipmentUtils.UPDATE == type) {
             mEquipment = equipmentDao.findEquipment(mRid);
             if (mEquipment.getSwitch().equals("1")) {
                 tag.isOpen.setChecked(true);
@@ -155,6 +154,8 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
         /**
          * 设置自定义视图
          */
+       /*
+        Toast.makeText(mContext, "mView == null :"+(null == mView), Toast.LENGTH_LONG).show();*/
         setView(mView);
         /**
          * 未点击确定或取消键时，不能取消对话框
@@ -199,12 +200,9 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
                 String height = tag.eHeight.getText().toString().trim();
                 String xAxis = tag.xAxis.getText().toString().trim();
                 String yAxis = tag.yAxis.getText().toString().trim();
-
-
                 /**
                  * 设置设备主参数
                  */
-
                 mEquipment.setName(name);
                 mEquipment.setPort(port);
                 mEquipment.setRate(rate);
@@ -214,24 +212,24 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
                 mEquipment.setStopBits(stop);
                 mEquipment.setParity(parity);
                 mEquipment.setDelay(delay);
-
                 /**
                  * 设置控件定位参数。
                  */
-
                 mLocation.setfId(mEquipment.getId());
                 mLocation.setWidth(str2Integer(width));
                 mLocation.setHeight(str2Integer(height));
                 mLocation.setxAxis(str2Integer(xAxis));
                 mLocation.setyAxis(str2Integer(yAxis));
                 utils = new EquipmentUtilsImpl(mContext);
-                if (CREATE == type) {
+                if (BaseEquipmentUtils.CREATE == type) {
                     int rid = IDUtils.generateRID();
                     mEquipment.setRid(rid);
                     mLocation.setId(rid);
                     button = utils.createEquipments(mContext, mEquipment, mLocation);
+                    System.out.println(null == button);
                     callBack(button);
-                    String path = "http://192.168.2.102:8080/PseudoProgram/AddEquipmentServlet";
+                    //TODO 保存到服务器端,需要判断是否创建成功
+                    /*String path = "http://192.168.1.117:8080/PseudoProgram/AddEquipmentServlet";
                     HttpUtils httpUtils = new HttpUtils();
                     httpUtils.doPost(path,
                             new Equipment(mEquipment.getId(),
@@ -244,16 +242,18 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
                                     mEquipment.getStopBits(),
                                     mEquipment.getParity(),
                                     mEquipment.getSwitch(),
-                                    mEquipment.getDelay()));
-                } else if (UPDATE == type) {
+                                    mEquipment.getDelay()));*/
+                } else if (BaseEquipmentUtils.UPDATE == type) {
                     mEquipment.setRid(mRid);
                     mLocation.setId(mRid);
-
                     boolean flag = utils.updateEquipments(mContext, mEquipment);
                     if (flag) {
                         Toast.makeText(mContext, "设备更新成功", Toast.LENGTH_SHORT).show();
+                        //TODO 更新到服务器
+                        //Write code here
+
                     }
-                    //Toast.makeText(mContext, ""+(null == mEquipment), Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(mContext, ""+(null == mEquipment), Toast.LENGTH_SHORT).show();
                    /*Toast.makeText(mContext, "ID:" + mEquipment.getId()
                            + "\nRID:" + "" + mEquipment.getRid()
                            + "\nName" + mEquipment.getName()
@@ -269,8 +269,8 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
                            + "\nHeight:" + mLocation.getHeight()
                            + "\nxAxis:" + mLocation.getxAxis()
                            + "\nyAxis:" + mLocation.getyAxis()
-                           , Toast.LENGTH_LONG).show();*/
-                    /*System.out.println("ID:" + mEquipment.getId()
+                           , Toast.LENGTH_LONG).show();
+                    System.out.println("ID:" + mEquipment.getId()
                             + "\nRID:" + "" + mEquipment.getRid()
                             + "\nName" + mEquipment.getName()
                             + "\nPort:" + mEquipment.getPort()
@@ -286,15 +286,19 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
                             + "\nxAxis:" + mLocation.getxAxis()
                             + "\nyAxis:" + mLocation.getyAxis());*/
                 }
+                dialog.dismiss();
+                dialog.cancel();
             }
         });
         /**
          * 设置按键监听
          */
+
         setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                dialog.dismiss();
+                dialog.cancel();
             }
         });
         show();

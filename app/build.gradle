@@ -3,9 +3,8 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
-
     defaultConfig {
-        applicationId "com.sunline.qi.pad"
+        applicationId 'com.sunline.qi'
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
@@ -17,10 +16,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     compileOptions {
         compileSdkVersion = "android-23"
         buildToolsVersion = "23.0.3"
+    }
+    productFlavors {
     }
 }
 

@@ -5,7 +5,7 @@ import com.sunline.qi.entity.Location;
 /**
  * Created by qi on 2016/9/8.
  */
-public interface LocationUtils {
+public interface LocationDao {
     boolean addLocation(Location location);
     boolean deleteLocation(String foreign);
     boolean updateLocation(Location location);

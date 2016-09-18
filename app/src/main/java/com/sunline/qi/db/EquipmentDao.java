@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by sunline on 2016/9/9.
  */
-public interface EquipmentUtils {
+public interface EquipmentDao {
     boolean addEquipment(AS_Equipment ASEquipment);
     boolean deleteEquipment(String id);
     boolean updateEquipment(AS_Equipment ASEquipment);

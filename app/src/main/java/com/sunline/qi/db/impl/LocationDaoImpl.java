@@ -4,13 +4,13 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.sunline.qi.db.DBHelper;
-import com.sunline.qi.db.LocationUtils;
+import com.sunline.qi.db.LocationDao;
 import com.sunline.qi.entity.Location;
 
 /**
  * Created by qi on 2016/9/8.
  */
-public class LocationDaoImpl extends DBHelper implements LocationUtils {
+public class LocationDaoImpl extends DBHelper implements LocationDao {
     public LocationDaoImpl(Context context) {
         super(context);
     }

@@ -55,6 +55,7 @@ public class DBHelper extends SQLiteOpenHelper {
         sql = "CREATE TABLE EquipmentInfo (" +
                 "_id CHAR(32) NOT NULL," +
                 "route SMALLINT NOT NULL," +
+                "name char(32) NOT NULL," +
                 "attr SMALLINT NOT NULL," +
                 "fk CHAR(32) NOT NULL," +
                 "per SMALLINT NOT NULL DEFAULT 100," +

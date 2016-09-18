@@ -1,14 +1,35 @@
 <resources>
-    <string name="app_name">PUEMonitor</string>
-    <array name="symbol">
+    <string name="app_name">PUE监测</string>
+    <string-array name="pueType">
+        <item >当日PUE值</item>
+        <item>当月PUE值</item>
+        <item>当年PUE值</item>
+        <item>24小时累计PUE值</item>
+        <item>30天累计PUE值</item>
+        <item>365天累计PUE值</item>
+    </string-array>
+    <string-array name="channel">
+        <item>通道1</item>
+        <item>通道2</item>
+        <item>通道3</item>
+        <item>通道4</item>
+        <item>通道5</item>
+    </string-array>
+    <string-array name="shunt_state">
+        <item>总耗电</item>
+        <item>服耗电</item>
+        <item>总+服</item>
+        <item>不纳入</item>
+    </string-array>
+    <array name="routeSymbol">
         <item>正号</item>
         <item>负号</item>
     </array>
-    <array name="attr">
+    <array name="routeAttr">
         <item>IT耗电</item>
         <item>总耗电</item>
     </array>
-    <array name="equipment_type">
+    <array name="equipmentType">
         <item>多路表</item>
         <item>直流电间</item>
     </array>
@@ -16,5 +37,4 @@
     <string name="content_menu_title">设备管理</string>
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
-
 </resources>

@@ -18,7 +18,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="alertDialogTheme">@style/Theme.AppCompat.Light.Dialog.Alert.Self</item>
     </style>
-    <style name="PopupMenuStyle" parent="AppTheme"><item name="android:radioButtonStyle">@style/MenuRadioButtonStyle</item>
+    <style name="PopupMenuStyle" parent="AppTheme">
+        <item name="android:radioButtonStyle">@style/MenuRadioButtonStyle</item>
     </style>
 
     <style name="MenuRadioButtonStyle" parent="@android:style/Widget.CompoundButton.RadioButton">
@@ -28,13 +29,17 @@
     </style>
 
     <style name="dialog" parent="@android:style/Theme.Dialog">
-        <item name="android:windowFrame">@null</item><!--边框-->
-        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
-        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowFrame">@null</item>
+        <!--边框-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item>
+        <!--半透明-->
         <item name="android:windowNoTitle">true</item>
         <item name="android:background">@android:color/black</item>
         <item name="android:windowBackground">@null</item>
-        <item name="android:backgroundDimEnabled">false</item><!--模糊-->
+        <item name="android:backgroundDimEnabled">false</item>
+        <!--模糊-->
     </style>
 
     <style name="NumText">
@@ -42,5 +47,39 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-
+    <style name="Row">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">31dp</item>
+        <item name="android:background">@color/colorRow</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">3dp</item>
+    </style>
+    <style name="Cell">
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:layout_marginLeft">1dp</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@color/colorCell</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">3dp</item>
+        <item name="android:inputType">number</item>
+    </style>
+    <style name="Column">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">3dp</item>
+        <item name="android:background">@color/colorColumn</item>
+        <item name="android:layout_marginLeft">1dp</item>
+    </style>
+    <style name="CellAttr">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:entries">@array/routeAttr</item>
+    </style>
+    <style name="CellSymbol">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:entries">@array/routeSymbol</item>
+    </style>
 </resources>

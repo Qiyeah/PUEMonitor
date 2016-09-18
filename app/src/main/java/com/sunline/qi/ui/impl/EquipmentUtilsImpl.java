@@ -30,9 +30,9 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
     }
 
     @Override
-    public Button createEquipments(Context context, AS_Equipment ASEquipment, Location location) {
+    public Button createEquipments(Context context, AS_Equipment asEquipment, Location location) {
         Button button = new Button(context);
-        button.setText(ASEquipment.getName());
+        button.setText(asEquipment.getName());
         button.setId(location.getId());
         int width = location.getWidth();
         int height = location.getHeight();
@@ -44,7 +44,7 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
         button.setLayoutParams(params);
         boolean flag = false;
         try {
-            flag = dbUtils.addEquipment(ASEquipment);
+            flag = dbUtils.addEquipment(asEquipment);
         } catch (Exception e) {
             Toast.makeText(mContext, "数据库添加失败！", Toast.LENGTH_LONG).show();
         }
@@ -82,12 +82,12 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
         List<Button> list = new ArrayList<>();
         EquipmentDaoImpl equipmentDao = new EquipmentDaoImpl(context);
         LocationDaoImpl locationDao = new LocationDaoImpl(context);
-        List<AS_Equipment> ASEquipments = equipmentDao.findAll();
-        if (null != ASEquipments && 0 < ASEquipments.size()) {
-            for (AS_Equipment ASEquipment : ASEquipments) {
-                Location location = locationDao.findLocation(ASEquipment.getId());
+        List<AS_Equipment> asEquipments = equipmentDao.findAll();
+        if (null != asEquipments && 0 < asEquipments.size()) {
+            for (AS_Equipment asEquipment : asEquipments) {
+                Location location = locationDao.findLocation(asEquipment.getId());
 //                Toast.makeText(mContext, "id = "+location.getId(), Toast.LENGTH_SHORT).show();
-                list.add(loadEquipment(ASEquipment.getName(), location));
+                list.add(loadEquipment(asEquipment.getName(), location));
             }
             return list;
         }
