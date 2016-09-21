@@ -3,19 +3,20 @@ package com.sunline.qi.entity;
 /**
  * Created by sunline on 2016/8/22.
  */
-public class EquipmentInfo {
+public class AndroidInfo {
+    private String fId;
     private String mId;
     private int mRoute;
     private String mRouteName;
-    private String fId;
     private int mTotalPer;
     private int mITPer;
-    private int mTotalSymbol = 1;
-    private int mITSymbol = 1;
-    public EquipmentInfo() {
+    private int mTotalSymbol;
+    private int mITSymbol;
+
+    public AndroidInfo() {
     }
 
-    public EquipmentInfo(String id, int route, String routeName, String fId,
+    public AndroidInfo( String fId,String id, int route, String routeName,
                        int totalPer, int ITPer, int totalSymbol, int ITSymbol) {
         mId = id;
         mRoute = route;
@@ -91,5 +92,4 @@ public class EquipmentInfo {
     public void setITSymbol(int ITSymbol) {
         mITSymbol = ITSymbol;
     }
-
 }

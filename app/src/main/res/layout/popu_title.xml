@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/colorDialog"
+              android:orientation="horizontal">
+    <TextView style="@style/Column" android:text="通道号"/>
+    <TextView style="@style/Column" android:text="名称"/>
+    <TextView style="@style/Column" android:text="总耗电符号"/>
+    <TextView style="@style/Column" android:text="总耗电占比"/>
+    <TextView style="@style/Column" android:text="IT耗电符号"/>
+    <TextView style="@style/Column" android:text="IT耗电占比"/>
+</LinearLayout>

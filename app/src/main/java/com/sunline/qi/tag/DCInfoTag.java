@@ -88,4 +88,9 @@ public class DCInfoTag {
     public Spinner attr16;
     public Spinner symbol16;
     public EditText per16;
+    public Spinner[] attr = new Spinner[16];
+    public Spinner[] symbol = new Spinner[16];
+    public TextView[] route = new TextView[16];
+    public EditText[] per = new EditText[16];
+    public EditText[] name = new EditText[16];
 }

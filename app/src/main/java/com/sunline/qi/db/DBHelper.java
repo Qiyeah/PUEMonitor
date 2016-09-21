@@ -54,12 +54,13 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(sql);
         sql = "CREATE TABLE EquipmentInfo (" +
                 "_id CHAR(32) NOT NULL," +
+                "fk CHAR(32) NOT NULL," +
                 "route SMALLINT NOT NULL," +
                 "name char(32) NOT NULL," +
-                "attr SMALLINT NOT NULL," +
-                "fk CHAR(32) NOT NULL," +
-                "per SMALLINT NOT NULL DEFAULT 100," +
-                "symbol SMALLINT NOT NULL DEFAULT 1," +
+                "total_symbol SMALLINT NOT NULL DEFAULT 1," +
+                "total_per SMALLINT NOT NULL DEFAULT 100," +
+                "it_symbol SMALLINT NOT NULL DEFAULT 1," +
+                "it_per SMALLINT NOT NULL DEFAULT 100," +
                 "dt DATETIME NOT NULL DEFAULT (datetime('now','localtime'))," +
                 "PRIMARY KEY (_id) " +
                 ")";

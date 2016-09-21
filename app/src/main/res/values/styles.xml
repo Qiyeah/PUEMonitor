@@ -54,7 +54,25 @@
         <item name="android:gravity">center</item>
         <item name="android:padding">3dp</item>
     </style>
-    <style name="Cell">
+    <style name="StrCell">
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:layout_marginLeft">1dp</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@color/colorCell</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">3dp</item>
+    </style>
+    <style name="SpinnerCell">
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:layout_marginLeft">1dp</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@color/colorCell</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">3dp</item>
+    </style>
+    <style name="NumCell">
         <item name="android:layout_marginTop">1dp</item>
         <item name="android:layout_marginLeft">1dp</item>
         <item name="android:layout_width">50dp</item>
@@ -65,10 +83,12 @@
         <item name="android:inputType">number</item>
     </style>
     <style name="Column">
-        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_width">63dp</item>
         <item name="android:layout_height">30dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:padding">3dp</item>
+        <item name="android:padding">2dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:background">@color/colorColumn</item>
         <item name="android:layout_marginLeft">1dp</item>
     </style>
@@ -77,9 +97,10 @@
         <item name="android:layout_height">30dp</item>
         <item name="android:entries">@array/routeAttr</item>
     </style>
-    <style name="CellSymbol">
+    <style name="SymbolCell">
         <item name="android:layout_width">50dp</item>
         <item name="android:layout_height">30dp</item>
+        <item name="android:background">@color/colorColumn</item>
         <item name="android:entries">@array/routeSymbol</item>
     </style>
 </resources>

@@ -33,4 +33,9 @@ public class ACInfoTag {
     public Spinner attr5;
     public Spinner symbol5;
     public EditText per5;
+    public Spinner[] attr = new Spinner[5];
+    public Spinner[] symbol = new Spinner[5];
+    public TextView[] route = new TextView[5];
+    public EditText[] per = new EditText[5];
+    public EditText[] name = new EditText[5];
 }

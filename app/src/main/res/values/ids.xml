@@ -24,32 +24,53 @@
     <item name="list_item_pue" type="id"/>
     <item name="list_item_config" type="id"/>
     <!-- 添加、更新多路表设备通道 -->
-    <item name="ac_route1" type="id"/>
+    <!--<item name="ac_route1" type="id"/>
     <item name="ac_route2" type="id"/>
     <item name="ac_route3" type="id"/>
     <item name="ac_route4" type="id"/>
     <item name="ac_route5" type="id"/>
+
     <item name="ac_name1" type="id"/>
     <item name="ac_name2" type="id"/>
     <item name="ac_name3" type="id"/>
     <item name="ac_name4" type="id"/>
     <item name="ac_name5" type="id"/>
-    <item name="ac_attr5" type="id"/>
-    <item name="ac_attr4" type="id"/>
-    <item name="ac_attr3" type="id"/>
-    <item name="ac_attr2" type="id"/>
+
+
+    <item name="ac_total_per1" type="id"/>
+    <item name="ac_total_per2" type="id"/>
+    <item name="ac_total_per3" type="id"/>
+    <item name="ac_total_per4" type="id"/>
+    <item name="ac_total_per5" type="id"/>
+
+
+    <item name="ac_it_per1" type="id"/>
+    <item name="ac_it_per2" type="id"/>
+    <item name="ac_it_per3" type="id"/>
+    <item name="ac_it_per4" type="id"/>
+    <item name="ac_it_per5" type="id"/>
+
+
+    <item name="ac_total_symbol1" type="id"/>
+    <item name="ac_total_symbol2" type="id"/>
+    <item name="ac_total_symbol3" type="id"/>
+    <item name="ac_total_symbol4" type="id"/>
+    <item name="ac_total_symbol5" type="id"/>
+
+
+    <item name="ac_it_symbol1" type="id"/>
+    <item name="ac_it_symbol2" type="id"/>
+    <item name="ac_it_symbol3" type="id"/>
+    <item name="ac_it_symbol4" type="id"/>
+    <item name="ac_it_symbol5" type="id"/>
+
     <item name="ac_attr1" type="id"/>
-    <item name="ac_symbol1" type="id"/>
-    <item name="ac_symbol2" type="id"/>
-    <item name="ac_symbol3" type="id"/>
-    <item name="ac_symbol4" type="id"/>
-    <item name="ac_symbol5" type="id"/>
-    <item name="ac_per1" type="id"/>
-    <item name="ac_per2" type="id"/>
-    <item name="ac_per3" type="id"/>
-    <item name="ac_per4" type="id"/>
-    <item name="ac_per5" type="id"/>
-    <!-- 添加、更新多路表设备通道 -->
+    <item name="ac_attr2" type="id"/>
+    <item name="ac_attr3" type="id"/>
+    <item name="ac_attr4" type="id"/>
+    <item name="ac_attr5" type="id"/>
+
+    &lt;!&ndash; 添加、更新直流电间设备通道 &ndash;&gt;
     <item name="dc_route1" type="id"/>
     <item name="dc_route2" type="id"/>
     <item name="dc_route3" type="id"/>
@@ -82,38 +103,75 @@
     <item name="dc_name14" type="id"/>
     <item name="dc_name15" type="id"/>
     <item name="dc_name16" type="id"/>
-    <item name="dc_per1" type="id"/>
-    <item name="dc_per2" type="id"/>
-    <item name="dc_per3" type="id"/>
-    <item name="dc_per4" type="id"/>
-    <item name="dc_per5" type="id"/>
-    <item name="dc_per6" type="id"/>
-    <item name="dc_per7" type="id"/>
-    <item name="dc_per8" type="id"/>
-    <item name="dc_per9" type="id"/>
-    <item name="dc_per10" type="id"/>
-    <item name="dc_per11" type="id"/>
-    <item name="dc_per12" type="id"/>
-    <item name="dc_per13" type="id"/>
-    <item name="dc_per14" type="id"/>
-    <item name="dc_per15" type="id"/>
-    <item name="dc_per16" type="id"/>
-    <item name="dc_symbol1" type="id"/>
-    <item name="dc_symbol2" type="id"/>
-    <item name="dc_symbol3" type="id"/>
-    <item name="dc_symbol4" type="id"/>
-    <item name="dc_symbol5" type="id"/>
-    <item name="dc_symbol6" type="id"/>
-    <item name="dc_symbol7" type="id"/>
-    <item name="dc_symbol8" type="id"/>
-    <item name="dc_symbol9" type="id"/>
-    <item name="dc_symbol10" type="id"/>
-    <item name="dc_symbol11" type="id"/>
-    <item name="dc_symbol12" type="id"/>
-    <item name="dc_symbol13" type="id"/>
-    <item name="dc_symbol14" type="id"/>
-    <item name="dc_symbol15" type="id"/>
-    <item name="dc_symbol16" type="id"/>
+
+    <item name="dc_total_per1" type="id"/>
+    <item name="dc_total_per2" type="id"/>
+    <item name="dc_total_per3" type="id"/>
+    <item name="dc_total_per4" type="id"/>
+    <item name="dc_total_per5" type="id"/>
+    <item name="dc_total_per6" type="id"/>
+    <item name="dc_total_per7" type="id"/>
+    <item name="dc_total_per8" type="id"/>
+    <item name="dc_total_per9" type="id"/>
+    <item name="dc_total_per10" type="id"/>
+    <item name="dc_total_per11" type="id"/>
+    <item name="dc_total_per12" type="id"/>
+    <item name="dc_total_per13" type="id"/>
+    <item name="dc_total_per14" type="id"/>
+    <item name="dc_total_per15" type="id"/>
+    <item name="dc_total_per16" type="id"/>
+
+    <item name="dc_it_per1" type="id"/>
+    <item name="dc_it_per2" type="id"/>
+    <item name="dc_it_per3" type="id"/>
+    <item name="dc_it_per4" type="id"/>
+    <item name="dc_it_per5" type="id"/>
+    <item name="dc_it_per6" type="id"/>
+    <item name="dc_it_per7" type="id"/>
+    <item name="dc_it_per8" type="id"/>
+    <item name="dc_it_per9" type="id"/>
+    <item name="dc_it_per10" type="id"/>
+    <item name="dc_it_per11" type="id"/>
+    <item name="dc_it_per12" type="id"/>
+    <item name="dc_it_per13" type="id"/>
+    <item name="dc_it_per14" type="id"/>
+    <item name="dc_it_per15" type="id"/>
+    <item name="dc_it_per16" type="id"/>
+
+    <item name="dc_total_symbol1" type="id"/>
+    <item name="dc_total_symbol2" type="id"/>
+    <item name="dc_total_symbol3" type="id"/>
+    <item name="dc_total_symbol4" type="id"/>
+    <item name="dc_total_symbol5" type="id"/>
+    <item name="dc_total_symbol6" type="id"/>
+    <item name="dc_total_symbol7" type="id"/>
+    <item name="dc_total_symbol8" type="id"/>
+    <item name="dc_total_symbol9" type="id"/>
+    <item name="dc_total_symbol10" type="id"/>
+    <item name="dc_total_symbol11" type="id"/>
+    <item name="dc_total_symbol12" type="id"/>
+    <item name="dc_total_symbol13" type="id"/>
+    <item name="dc_total_symbol14" type="id"/>
+    <item name="dc_total_symbol15" type="id"/>
+    <item name="dc_total_symbol16" type="id"/>
+
+    <item name="dc_it_symbol1" type="id"/>
+    <item name="dc_it_symbol2" type="id"/>
+    <item name="dc_it_symbol3" type="id"/>
+    <item name="dc_it_symbol4" type="id"/>
+    <item name="dc_it_symbol5" type="id"/>
+    <item name="dc_it_symbol6" type="id"/>
+    <item name="dc_it_symbol7" type="id"/>
+    <item name="dc_it_symbol8" type="id"/>
+    <item name="dc_it_symbol9" type="id"/>
+    <item name="dc_it_symbol10" type="id"/>
+    <item name="dc_it_symbol11" type="id"/>
+    <item name="dc_it_symbol12" type="id"/>
+    <item name="dc_it_symbol13" type="id"/>
+    <item name="dc_it_symbol14" type="id"/>
+    <item name="dc_it_symbol15" type="id"/>
+    <item name="dc_it_symbol16" type="id"/>
+
     <item name="dc_attr1" type="id"/>
     <item name="dc_attr2" type="id"/>
     <item name="dc_attr3" type="id"/>
@@ -129,5 +187,11 @@
     <item name="dc_attr13" type="id"/>
     <item name="dc_attr14" type="id"/>
     <item name="dc_attr15" type="id"/>
-    <item name="dc_attr16" type="id"/>
+    <item name="dc_attr16" type="id"/>-->
+    <item name="route" type="id"/>
+    <item name="routeName" type="id"/>
+    <item name="totalSymbol" type="id"/>
+    <item name="totalPer" type="id"/>
+    <item name="itSymbol" type="id"/>
+    <item name="itPer" type="id"/>
 </resources>

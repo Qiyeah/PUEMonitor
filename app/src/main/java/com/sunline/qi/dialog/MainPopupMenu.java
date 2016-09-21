@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.sunline.qi.activity.R;
 import com.sunline.qi.db.impl.EquipmentDaoImpl;
 import com.sunline.qi.db.impl.LocationDaoImpl;
-import com.sunline.qi.entity.AS_Equipment;
+import com.sunline.qi.entity.AndroidEquipment;
 import com.sunline.qi.entity.Equipment;
 import com.sunline.qi.entity.Location;
 import com.sunline.qi.http.HttpUtils;
@@ -35,12 +35,13 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
     private Context mContext;
     public static final String EQUIPMENT_AC = "1";
     public static final String EQUIPMENT_DC = "2";
-    private AS_Equipment mEquipment;
+    private AndroidEquipment mAndroidEquipment;
     private Location mLocation;
     private View mView;
     private Button button;
     private EquipmentUtilsImpl utils;
     private int mRid;
+    private String fk;
     private EquipmentDaoImpl equipmentDao;
     private LocationDaoImpl locationDao;
     EquipmentMainTag tag = null;
@@ -48,14 +49,12 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
     public MainPopupMenu(Context context) {
         super(context);
         mContext = context;
-        mEquipment = new AS_Equipment();
+        mAndroidEquipment = new AndroidEquipment();
         mLocation = new Location();
     }
 
     public MainPopupMenu(int id, Context context) {
         super(context);
-      /*  mEquipment = new Equipment();
-        mLocation = new Location();*/
         mRid = id;
         mContext = context;
         equipmentDao = new EquipmentDaoImpl(mContext);
@@ -63,8 +62,7 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
     }
 
 
-    public void showDialog(final int type) {
-        //Toast.makeText(mContext,"MainPopupMenu.showDialog is run!",Toast.LENGTH_LONG).show();
+    public void initDialog(final int type) {
         setInverseBackgroundForced(true);
         /**
          * 设置自定义图标
@@ -94,23 +92,22 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    mEquipment.setSwitch("1");
+                    mAndroidEquipment.setSwitch("1");
                 } else
-                    mEquipment.setSwitch("0");
+                    mAndroidEquipment.setSwitch("0");
             }
         });
         /**
          * 设置设备类型
          */
-        if (BaseEquipmentUtils.CREATE == type) {
+        if (BaseEquipmentUtils.EQUIPMENT_CREATE == type) {
             tag.type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(mContext,"position:"+position,Toast.LENGTH_LONG).show();
                     if (0 == position) {
-                        mEquipment.setId(IDUtils.getId(IDUtils.AC));
+                        mAndroidEquipment.setId(IDUtils.getId(IDUtils.AC));
                     } else if (1 == position) {
-                        mEquipment.setId(IDUtils.getId(IDUtils.DC));
+                        mAndroidEquipment.setId(IDUtils.getId(IDUtils.DC));
                     }
                 }
 
@@ -120,30 +117,30 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
                 }
             });
         }
-        if (BaseEquipmentUtils.UPDATE == type) {
-            mEquipment = equipmentDao.findEquipment(mRid);
-            if (mEquipment.getSwitch().equals("1")) {
+        if (BaseEquipmentUtils.EQUIPMENT_UPDATE == type) {
+            mAndroidEquipment = equipmentDao.findEquipment(mRid);
+            if (mAndroidEquipment.getSwitch().equals("1")) {
                 tag.isOpen.setChecked(true);
             } else {
                 tag.isOpen.setChecked(false);
             }
-            if (mEquipment.getId().startsWith("AC")) {
+            if (mAndroidEquipment.getId().startsWith("AC")) {
                 tag.type.setSelection(0);
-            } else if (mEquipment.getId().startsWith("DC")) {
+            } else if (mAndroidEquipment.getId().startsWith("DC")) {
                 tag.type.setSelection(1);
             }
 
-            tag.name.setText(mEquipment.getName());
-            tag.port.setText(mEquipment.getPort());
-            tag.rate.setText(mEquipment.getRate());
-            tag.addr.setText(mEquipment.getAddr());
-            tag.timeout.setText(mEquipment.getTimeOut());
-            tag.data.setText(mEquipment.getDataBits());
-            tag.stop.setText(mEquipment.getStopBits());
-            tag.parity.setText(mEquipment.getParity());
-            tag.delayed.setText(mEquipment.getDelay());
-            tag.eWidth.setText(mEquipment.getDelay());
-            tag.delayed.setText(mEquipment.getDelay());
+            tag.name.setText(mAndroidEquipment.getName());
+            tag.port.setText(mAndroidEquipment.getPort());
+            tag.rate.setText(mAndroidEquipment.getRate());
+            tag.addr.setText(mAndroidEquipment.getAddr());
+            tag.timeout.setText(mAndroidEquipment.getTimeOut());
+            tag.data.setText(mAndroidEquipment.getDataBits());
+            tag.stop.setText(mAndroidEquipment.getStopBits());
+            tag.parity.setText(mAndroidEquipment.getParity());
+            tag.delayed.setText(mAndroidEquipment.getDelay());
+            tag.eWidth.setText(mAndroidEquipment.getDelay());
+            tag.delayed.setText(mAndroidEquipment.getDelay());
 
             mLocation = locationDao.findLocation(mRid);
             tag.eWidth.setText(Integer.toString(mLocation.getWidth()));
@@ -203,88 +200,58 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
                 /**
                  * 设置设备主参数
                  */
-                mEquipment.setName(name);
-                mEquipment.setPort(port);
-                mEquipment.setRate(rate);
-                mEquipment.setAddr(addr);
-                mEquipment.setTimeOut(timeout);
-                mEquipment.setDataBits(data);
-                mEquipment.setStopBits(stop);
-                mEquipment.setParity(parity);
-                mEquipment.setDelay(delay);
+                mAndroidEquipment.setName(name);
+                mAndroidEquipment.setPort(port);
+                mAndroidEquipment.setRate(rate);
+                mAndroidEquipment.setAddr(addr);
+                mAndroidEquipment.setTimeOut(timeout);
+                mAndroidEquipment.setDataBits(data);
+                mAndroidEquipment.setStopBits(stop);
+                mAndroidEquipment.setParity(parity);
+                mAndroidEquipment.setDelay(delay);
                 /**
                  * 设置控件定位参数。
                  */
-                mLocation.setfId(mEquipment.getId());
+                mLocation.setfId(mAndroidEquipment.getId());
                 mLocation.setWidth(str2Integer(width));
                 mLocation.setHeight(str2Integer(height));
                 mLocation.setxAxis(str2Integer(xAxis));
                 mLocation.setyAxis(str2Integer(yAxis));
                 utils = new EquipmentUtilsImpl(mContext);
-                if (BaseEquipmentUtils.CREATE == type) {
+                if (BaseEquipmentUtils.EQUIPMENT_CREATE == type) {
                     int rid = IDUtils.generateRID();
-                    mEquipment.setRid(rid);
+                    mAndroidEquipment.setRid(rid);
                     mLocation.setId(rid);
-                    button = utils.createEquipments(mContext, mEquipment, mLocation);
+                    button = utils.createEquipments(mContext, mAndroidEquipment, mLocation);
                     System.out.println(null == button);
                     callBack(button);
                     //TODO 保存到服务器端,需要判断是否创建成功
-                    /*String path = "http://192.168.1.117:8080/PseudoProgram/AddEquipmentServlet";
+                    String path = "http://192.168.1.117:8080/PseudoProgram/AddEquipmentServlet";
                     HttpUtils httpUtils = new HttpUtils();
                     httpUtils.doPost(path,
-                            new Equipment(mEquipment.getId(),
-                                    mEquipment.getName(),
-                                    mEquipment.getPort(),
-                                    mEquipment.getRate(),
-                                    mEquipment.getAddr(),
-                                    mEquipment.getTimeOut(),
-                                    mEquipment.getDataBits(),
-                                    mEquipment.getStopBits(),
-                                    mEquipment.getParity(),
-                                    mEquipment.getSwitch(),
-                                    mEquipment.getDelay()));*/
-                } else if (BaseEquipmentUtils.UPDATE == type) {
-                    mEquipment.setRid(mRid);
+                            new Equipment(mAndroidEquipment.getId(),
+                                    mAndroidEquipment.getName(),
+                                    mAndroidEquipment.getPort(),
+                                    mAndroidEquipment.getRate(),
+                                    mAndroidEquipment.getAddr(),
+                                    mAndroidEquipment.getTimeOut(),
+                                    mAndroidEquipment.getDataBits(),
+                                    mAndroidEquipment.getStopBits(),
+                                    mAndroidEquipment.getParity(),
+                                    mAndroidEquipment.getSwitch(),
+                                    mAndroidEquipment.getDelay()));
+                } else if (BaseEquipmentUtils.EQUIPMENT_UPDATE == type) {
+                    mAndroidEquipment.setRid(mRid);
                     mLocation.setId(mRid);
-                    boolean flag = utils.updateEquipments(mContext, mEquipment);
+                    boolean flag = utils.updateEquipments(mContext, mAndroidEquipment);
                     if (flag) {
+
                         Toast.makeText(mContext, "设备更新成功", Toast.LENGTH_SHORT).show();
                         //TODO 更新到服务器
                         //Write code here
 
                     }
-                   // Toast.makeText(mContext, ""+(null == mEquipment), Toast.LENGTH_SHORT).show();
-                   /*Toast.makeText(mContext, "ID:" + mEquipment.getId()
-                           + "\nRID:" + "" + mEquipment.getRid()
-                           + "\nName" + mEquipment.getName()
-                           + "\nPort:" + mEquipment.getPort()
-                           + "\nRate:" + mEquipment.getRate()
-                           + "\nAddr:" + mEquipment.getAddr()
-                           + "\nData:" + mEquipment.getDataBits()
-                           + "\nStop:" + mEquipment.getStopBits()
-                           + "\nState:" + mEquipment.getSwitch()
-                           + "\nDelay:" + mEquipment.getDelay()
-                           + "\nLID:" + mLocation.getId()
-                           + "\nWidth:" + mLocation.getWidth()
-                           + "\nHeight:" + mLocation.getHeight()
-                           + "\nxAxis:" + mLocation.getxAxis()
-                           + "\nyAxis:" + mLocation.getyAxis()
-                           , Toast.LENGTH_LONG).show();
-                    System.out.println("ID:" + mEquipment.getId()
-                            + "\nRID:" + "" + mEquipment.getRid()
-                            + "\nName" + mEquipment.getName()
-                            + "\nPort:" + mEquipment.getPort()
-                            + "\nRate:" + mEquipment.getRate()
-                            + "\nAddr:" + mEquipment.getAddr()
-                            + "\nData:" + mEquipment.getDataBits()
-                            + "\nStop:" + mEquipment.getStopBits()
-                            + "\nState:" + mEquipment.getSwitch()
-                            + "\nDelay:" + mEquipment.getDelay()
-                            + "\nLID:" + mLocation.getId()
-                            + "\nWidth:" + mLocation.getWidth()
-                            + "\nHeight:" + mLocation.getHeight()
-                            + "\nxAxis:" + mLocation.getxAxis()
-                            + "\nyAxis:" + mLocation.getyAxis());*/
+
                 }
                 dialog.dismiss();
                 dialog.cancel();
@@ -301,7 +268,6 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
                 dialog.cancel();
             }
         });
-        show();
     }
 
     private void initTag() {
@@ -344,3 +310,36 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
 
     public abstract void callBack(Button button);
 }
+
+// Toast.makeText(mContext, ""+(null == mEquipment), Toast.LENGTH_SHORT).show();
+                   /*Toast.makeText(mContext, "ID:" + mEquipment.getId()
+                           + "\nRID:" + "" + mEquipment.getRid()
+                           + "\nName" + mEquipment.getName()
+                           + "\nPort:" + mEquipment.getPort()
+                           + "\nRate:" + mEquipment.getRate()
+                           + "\nAddr:" + mEquipment.getAddr()
+                           + "\nData:" + mEquipment.getDataBits()
+                           + "\nStop:" + mEquipment.getStopBits()
+                           + "\nState:" + mEquipment.getSwitch()
+                           + "\nDelay:" + mEquipment.getDelay()
+                           + "\nLID:" + mLocation.getId()
+                           + "\nWidth:" + mLocation.getWidth()
+                           + "\nHeight:" + mLocation.getHeight()
+                           + "\nxAxis:" + mLocation.getxAxis()
+                           + "\nyAxis:" + mLocation.getyAxis()
+                           , Toast.LENGTH_LONG).show();
+                    System.out.println("ID:" + mEquipment.getId()
+                            + "\nRID:" + "" + mEquipment.getRid()
+                            + "\nName" + mEquipment.getName()
+                            + "\nPort:" + mEquipment.getPort()
+                            + "\nRate:" + mEquipment.getRate()
+                            + "\nAddr:" + mEquipment.getAddr()
+                            + "\nData:" + mEquipment.getDataBits()
+                            + "\nStop:" + mEquipment.getStopBits()
+                            + "\nState:" + mEquipment.getSwitch()
+                            + "\nDelay:" + mEquipment.getDelay()
+                            + "\nLID:" + mLocation.getId()
+                            + "\nWidth:" + mLocation.getWidth()
+                            + "\nHeight:" + mLocation.getHeight()
+                            + "\nxAxis:" + mLocation.getxAxis()
+                            + "\nyAxis:" + mLocation.getyAxis());*/

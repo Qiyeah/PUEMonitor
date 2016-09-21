@@ -9,9 +9,14 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.sunline.qi.activity.R;
+import com.sunline.qi.db.InfoDao;
 import com.sunline.qi.db.impl.EquipmentDaoImpl;
+import com.sunline.qi.db.impl.InfoDaoImpl;
 import com.sunline.qi.db.impl.LocationDaoImpl;
+import com.sunline.qi.dialog.InfoPopuMenu;
 import com.sunline.qi.dialog.MainPopupMenu;
+import com.sunline.qi.ui.BaseEquipmentUtils;
+import com.sunline.qi.ui.BaseInfoUtils;
 
 import java.lang.reflect.Field;
 
@@ -50,7 +55,9 @@ public class EquipmentOnClickListenerImpl implements View.OnClickListener {
             public boolean onMenuItemClick(MenuItem item) {
                 LocationDaoImpl locationDao = new LocationDaoImpl(mContext);
                 EquipmentDaoImpl equipmentDao = new EquipmentDaoImpl(mContext);
+                InfoDao infoDao = new InfoDaoImpl(mContext);
                 int rid = view.getId();
+                String fk = equipmentDao.findForeignKey(rid);
                 switch (item.getItemId()) {
                     case R.id.menu_setting_main:
                         //Toast.makeText(mContext, ""+rid, Toast.LENGTH_SHORT).show();
@@ -60,10 +67,19 @@ public class EquipmentOnClickListenerImpl implements View.OnClickListener {
 
                             }
                         };
-                        dialog.showDialog(MainPopupMenu.UPDATE);
+                        dialog.initDialog(BaseEquipmentUtils.EQUIPMENT_UPDATE);
+                        dialog.show();
                         break;
                     case R.id.menu_setting_info:
-
+                        InfoPopuMenu infoMenu = new InfoPopuMenu(fk,mContext);
+                        boolean isExists = false;
+                        isExists = infoDao.isExists(fk);
+                        if (isExists){
+                            infoMenu.initDialog(BaseInfoUtils.INFO_UPDATE);
+                        }else {
+                            infoMenu.initDialog(BaseInfoUtils.INFO_CREATE);
+                        }
+                        infoMenu.show();
                         break;
                     //TODO 更新设备位置
                     case R.id.menu_setting_move:
@@ -72,7 +88,6 @@ public class EquipmentOnClickListenerImpl implements View.OnClickListener {
                     //TODO 删除设备
                     case R.id.menu_setting_drop:
                         view.setVisibility(View.GONE);
-                        String fk = locationDao.findDeviceId(rid);
                         Toast.makeText(mContext, fk, Toast.LENGTH_SHORT).show();
                         locationDao.deleteLocation(fk);
                         equipmentDao.deleteEquipment(fk);

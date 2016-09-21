@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by sunline on 2016/8/22.
  */
-public class AS_Equipment {
+public class AndroidEquipment {
     private String mId;
     private int mRid;
     private String mName;
@@ -30,11 +30,11 @@ public class AS_Equipment {
 
     private Date mDate;
 
-    public AS_Equipment() {
+    public AndroidEquipment() {
     }
 
 
-    public AS_Equipment(String mId, int rId, String mName, String mPort, String mRate, String mAddr) {
+    public AndroidEquipment(String mId, int rId, String mName, String mPort, String mRate, String mAddr) {
         this.mId = mId;
         this.mRid = rId;
         this.mName = mName;
@@ -43,9 +43,9 @@ public class AS_Equipment {
         this.mAddr = mAddr;
     }
 
-    public AS_Equipment(String id, String name, String port,
-                        String rate, String addr, String timeOut, String dataBits,
-                        String stopBits, String parity, String state, String delay) {
+    public AndroidEquipment(String id, String name, String port,
+                            String rate, String addr, String timeOut, String dataBits,
+                            String stopBits, String parity, String state, String delay) {
         mId = id;
         mName = name;
         mPort = port;

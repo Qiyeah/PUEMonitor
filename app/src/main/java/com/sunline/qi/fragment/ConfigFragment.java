@@ -13,7 +13,8 @@ import android.widget.RelativeLayout;
 
 import com.sunline.qi.activity.R;
 import com.sunline.qi.dialog.MainPopupMenu;
-import com.sunline.qi.entity.AS_Equipment;
+import com.sunline.qi.entity.AndroidEquipment;
+import com.sunline.qi.ui.BaseEquipmentUtils;
 import com.sunline.qi.ui.impl.EquipmentUtilsImpl;
 
 import java.util.List;
@@ -24,7 +25,7 @@ import java.util.List;
 public class ConfigFragment extends Fragment {
     RelativeLayout mContainer;
     Context mContext;
-    AS_Equipment asEquipment;
+    AndroidEquipment asEquipment;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +85,7 @@ public class ConfigFragment extends Fragment {
                 }
             }
         };
-        dialog.showDialog(MainPopupMenu.CREATE);
+        dialog.initDialog(BaseEquipmentUtils.EQUIPMENT_CREATE);
+        dialog.show();
     }
 }

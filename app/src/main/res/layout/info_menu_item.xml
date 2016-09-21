@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:background="@color/colorDialog"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+        android:id="@id/route"
+        style="@style/Row"
+        android:layout_weight="1"
+        />
+    <EditText
+        android:id="@+id/routeName"
+        android:layout_weight="1"
+        style="@style/StrCell"/>
+    <Spinner
+        android:id="@id/totalSymbol"
+        android:layout_weight="1"
+        style="@style/SymbolCell"
+        />
+    <EditText
+        android:id="@+id/totalPer"
+        android:layout_weight="1"
+        style="@style/NumCell"
+        android:text="100"/>
+    <Spinner
+        android:id="@id/itSymbol"
+        android:layout_weight="1"
+        style="@style/SymbolCell"
+        />
+    <EditText
+        android:id="@+id/itPer"
+        android:layout_weight="1"
+        style="@style/NumCell"
+        android:text="100"/>
+</LinearLayout>

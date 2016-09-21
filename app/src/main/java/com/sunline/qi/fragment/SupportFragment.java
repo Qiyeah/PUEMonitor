@@ -116,14 +116,14 @@ public class SupportFragment extends Fragment {
                         String user = tag.username.getText().toString().trim();
                         String pass = tag.password.getText().toString().trim();
                         //Toast.makeText(getActivity(),"user = "+user+"\npass = "+pass,Toast.LENGTH_LONG).show();
-                        if (loginUtils.isSuccess(user, pass)) {
+                        //if (loginUtils.isSuccess(user, pass)) {
                             Fragment fragment = new ConfigFragment();
                             getFragmentManager().
                                     beginTransaction().
                                     replace(R.id.pageContainer, fragment).
                                     addToBackStack("ConfigFragment").
                                     commit();
-                        } else
+                        //} else
                             //Toast.makeText(getActivity(), "---对不起！输入用户名或密码错误---", Toast.LENGTH_LONG).show();
                         dialog.dismiss();
                     }

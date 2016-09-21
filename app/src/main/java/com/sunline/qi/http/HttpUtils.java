@@ -1,7 +1,6 @@
 package com.sunline.qi.http;
 
 import com.google.gson.Gson;
-import com.sunline.qi.entity.AS_Equipment;
 import com.sunline.qi.entity.Equipment;
 
 import java.io.IOException;

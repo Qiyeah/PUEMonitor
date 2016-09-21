@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.sunline.qi.db.impl.EquipmentDaoImpl;
 import com.sunline.qi.db.impl.LocationDaoImpl;
-import com.sunline.qi.entity.AS_Equipment;
+import com.sunline.qi.entity.AndroidEquipment;
 import com.sunline.qi.entity.Location;
 import com.sunline.qi.listener.EquipmentOnClickListenerImpl;
 import com.sunline.qi.ui.BaseEquipmentUtils;
@@ -30,7 +30,7 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
     }
 
     @Override
-    public Button createEquipments(Context context, AS_Equipment asEquipment, Location location) {
+    public Button createEquipments(Context context, AndroidEquipment asEquipment, Location location) {
         Button button = new Button(context);
         button.setText(asEquipment.getName());
         button.setId(location.getId());
@@ -68,12 +68,12 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
     }
 
     @Override
-    public boolean updateEquipments(Context context, AS_Equipment ASEquipment) {
+    public boolean updateEquipments(Context context, AndroidEquipment ASEquipment) {
         return dbUtils.updateEquipment(ASEquipment);
     }
 
     @Override
-    public AS_Equipment findEquipments(Context context, String id) {
+    public AndroidEquipment findEquipments(Context context, String id) {
         return dbUtils.findEquipment(id);
     }
 
@@ -82,9 +82,9 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
         List<Button> list = new ArrayList<>();
         EquipmentDaoImpl equipmentDao = new EquipmentDaoImpl(context);
         LocationDaoImpl locationDao = new LocationDaoImpl(context);
-        List<AS_Equipment> asEquipments = equipmentDao.findAll();
+        List<AndroidEquipment> asEquipments = equipmentDao.findAll();
         if (null != asEquipments && 0 < asEquipments.size()) {
-            for (AS_Equipment asEquipment : asEquipments) {
+            for (AndroidEquipment asEquipment : asEquipments) {
                 Location location = locationDao.findLocation(asEquipment.getId());
 //                Toast.makeText(mContext, "id = "+location.getId(), Toast.LENGTH_SHORT).show();
                 list.add(loadEquipment(asEquipment.getName(), location));

@@ -1,6 +1,6 @@
 package com.sunline.qi.db;
 
-import com.sunline.qi.entity.AS_Equipment;
+import com.sunline.qi.entity.AndroidEquipment;
 
 import java.util.List;
 
@@ -8,10 +8,11 @@ import java.util.List;
  * Created by sunline on 2016/9/9.
  */
 public interface EquipmentDao {
-    boolean addEquipment(AS_Equipment ASEquipment);
+    boolean addEquipment(AndroidEquipment ASEquipment);
     boolean deleteEquipment(String id);
-    boolean updateEquipment(AS_Equipment ASEquipment);
-    AS_Equipment findEquipment(String id);
-    AS_Equipment findEquipment(int rid);
-    List<AS_Equipment> findAll();
+    boolean updateEquipment(AndroidEquipment ASEquipment);
+    AndroidEquipment findEquipment(String id);
+    AndroidEquipment findEquipment(int rid);
+    List<AndroidEquipment> findAll();
+    String findForeignKey(int rid);
 }

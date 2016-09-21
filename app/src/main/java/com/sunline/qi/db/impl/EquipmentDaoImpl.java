@@ -5,7 +5,7 @@ import android.database.Cursor;
 
 import com.sunline.qi.db.EquipmentDao;
 import com.sunline.qi.db.DBHelper;
-import com.sunline.qi.entity.AS_Equipment;
+import com.sunline.qi.entity.AndroidEquipment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +14,12 @@ import java.util.List;
  * Created by sunline on 2016/9/9.
  */
 public class EquipmentDaoImpl extends DBHelper implements EquipmentDao {
-    private Context mContext;
     public EquipmentDaoImpl(Context context) {
         super(context);
-        mContext = context;
     }
 
     @Override
-    public boolean addEquipment(AS_Equipment ASEquipment) {
+    public boolean addEquipment(AndroidEquipment ASEquipment) {
         String sql = "insert into Equipment (" +
                 "_id,rid,name,port,rate,addr,timeout,data,stop,parity,switch,delayed" +
                 ") values(" +
@@ -41,8 +39,8 @@ public class EquipmentDaoImpl extends DBHelper implements EquipmentDao {
     }
 
     @Override
-    public boolean updateEquipment(AS_Equipment asEquipment) {
-        System.out.println("ID:" + asEquipment.getId()
+    public boolean updateEquipment(AndroidEquipment asEquipment) {
+        /*System.out.println("ID:" + asEquipment.getId()
                 + "\nRID:" + "" + asEquipment.getRid()
                 + "\nName" + asEquipment.getName()
                 + "\nPort:" + asEquipment.getPort()
@@ -52,7 +50,7 @@ public class EquipmentDaoImpl extends DBHelper implements EquipmentDao {
                 + "\nStop:" + asEquipment.getStopBits()
                 + "\nState:" + asEquipment.getSwitch()
                 + "\nDelay:" + asEquipment.getDelay()
-             );
+             );*/
         String sql = "update Equipment set name = ? ,port = ?,rate = ?,addr = ?,timeout = ?,data = ?,stop = ?," +
                 "parity = ?,switch = ?,delayed = ? ,dt = (datetime('now','localtime')) where rid = ?";
         return update(sql, new Object[]{asEquipment.getName(), asEquipment.getPort(), asEquipment.getRate(),
@@ -61,11 +59,11 @@ public class EquipmentDaoImpl extends DBHelper implements EquipmentDao {
     }
 
     @Override
-    public AS_Equipment findEquipment(String id) {
+    public AndroidEquipment findEquipment(String id) {
         String sql = "select id,name,port,rate,addr,timeout,data,stop,parity,switch,delayed " +
                 "from Equipment where _id = ?";
         Cursor cursor = query(sql,new String[]{id});
-        AS_Equipment asEquipment = new AS_Equipment();
+        AndroidEquipment asEquipment = new AndroidEquipment();
         while (0 < cursor.getCount()){
             asEquipment.setId(cursor.getString(cursor.getColumnIndex("_id")));
             asEquipment.setName(cursor.getString(cursor.getColumnIndex("name")));
@@ -83,11 +81,11 @@ public class EquipmentDaoImpl extends DBHelper implements EquipmentDao {
     }
 
     @Override
-    public AS_Equipment findEquipment(int rid) {
+    public AndroidEquipment findEquipment(int rid) {
         String sql = "select _id,name,port,rate,addr,timeout,data,stop,parity,switch,delayed " +
                 "from Equipment where rid = ?";
         Cursor cursor = query(sql,Integer.toString(rid));
-        AS_Equipment asEquipment = new AS_Equipment();
+        AndroidEquipment asEquipment = new AndroidEquipment();
         while (cursor.moveToNext()){
             asEquipment.setId(cursor.getString(cursor.getColumnIndex("_id")).trim());
             asEquipment.setName(cursor.getString(cursor.getColumnIndex("name")).trim());
@@ -105,13 +103,13 @@ public class EquipmentDaoImpl extends DBHelper implements EquipmentDao {
     }
 
     @Override
-    public List<AS_Equipment> findAll() {
+    public List<AndroidEquipment> findAll() {
         String sql = "select * from Equipment";
         Cursor cursor = query(sql);
-        List<AS_Equipment> list = new ArrayList<AS_Equipment>();
+        List<AndroidEquipment> list = new ArrayList<AndroidEquipment>();
 
         while (cursor.moveToNext()){
-            AS_Equipment asEquipment = new AS_Equipment();
+            AndroidEquipment asEquipment = new AndroidEquipment();
             asEquipment.setId(cursor.getString(cursor.getColumnIndex("_id")));
             asEquipment.setRid(cursor.getInt(cursor.getColumnIndex("rid")));
             asEquipment.setName(cursor.getString(cursor.getColumnIndex("name")));
@@ -127,5 +125,16 @@ public class EquipmentDaoImpl extends DBHelper implements EquipmentDao {
             list.add(asEquipment);
         }
         return list;
+    }
+
+    @Override
+    public String findForeignKey(int rid) {
+        String sql = "select _id from Equipment where rid = ?";
+        Cursor cursor = query(sql,Integer.toString(rid));
+        String id = "";
+        while (cursor.moveToNext()){
+            id = cursor.getString(cursor.getColumnIndex("_id")).trim();
+        }
+        return id;
     }
 }

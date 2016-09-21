@@ -32,7 +32,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
                 <Spinner
                     android:id="@id/eType"
-                    android:entries="@array/equipment_type"
+                    android:entries="@array/equipmentType"
                     />
             </TableRow>
             <TableRow>

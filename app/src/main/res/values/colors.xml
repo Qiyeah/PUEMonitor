@@ -3,7 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorCell">#E6DCDC</color>
-    <color name="colorColumn">#8F6D0A</color>
-    <color name="colorRow">#740D47</color>
+    <color name="colorCell">#AAE6DCDC</color>
+    <color name="colorColumn">#AA8F6D0A</color>
+    <color name="colorRow">#AA740D47</color>
+    <color name="colorDialog">#AA740D47</color>
 </resources>

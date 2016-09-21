@@ -26,8 +26,8 @@
         <item>负号</item>
     </array>
     <array name="routeAttr">
-        <item>IT耗电</item>
         <item>总耗电</item>
+        <item>IT耗电</item>
     </array>
     <array name="equipmentType">
         <item>多路表</item>
