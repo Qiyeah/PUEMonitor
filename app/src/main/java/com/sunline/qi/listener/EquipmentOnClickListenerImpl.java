@@ -26,14 +26,21 @@ import java.lang.reflect.Field;
 public class EquipmentOnClickListenerImpl implements View.OnClickListener {
     private Context mContext;
 
+    public EquipmentOnClickListenerImpl() {
+    }
+
+    public EquipmentOnClickListenerImpl(Context context) {
+        mContext = context;
+    }
+
     @Override
     public void onClick(View v) {
         //if (v.getId()==R.id.)
         showPopupMenu(v);
     }
+
     private void showPopupMenu(final View view) {
         mContext = view.getContext();
-
         // View当前PopupMenu显示的相对View的位置
         PopupMenu popupMenu = new PopupMenu(mContext, view);
         // menu布局
@@ -44,10 +51,8 @@ public class EquipmentOnClickListenerImpl implements View.OnClickListener {
             field.setAccessible(true);
             MenuPopupHelper helper = (MenuPopupHelper) field.get(popupMenu);
             helper.setForceShowIcon(true);
-        } catch (NoSuchFieldException e) {
+        } catch (Exception e) {
             //
-        } catch (IllegalAccessException e) {
-            //e.printStackTrace();
         }
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
@@ -61,7 +66,7 @@ public class EquipmentOnClickListenerImpl implements View.OnClickListener {
                 switch (item.getItemId()) {
                     case R.id.menu_setting_main:
                         //Toast.makeText(mContext, ""+rid, Toast.LENGTH_SHORT).show();
-                        MainPopupMenu dialog = new MainPopupMenu(rid,mContext) {
+                        MainPopupMenu dialog = new MainPopupMenu(mContext, view) {
                             @Override
                             public void callBack(Button button) {
 
@@ -71,12 +76,12 @@ public class EquipmentOnClickListenerImpl implements View.OnClickListener {
                         dialog.show();
                         break;
                     case R.id.menu_setting_info:
-                        InfoPopuMenu infoMenu = new InfoPopuMenu(fk,mContext);
+                        InfoPopuMenu infoMenu = new InfoPopuMenu(fk, mContext);
                         boolean isExists = false;
                         isExists = infoDao.isExists(fk);
-                        if (isExists){
+                        if (isExists) {
                             infoMenu.initDialog(BaseInfoUtils.INFO_UPDATE);
-                        }else {
+                        } else {
                             infoMenu.initDialog(BaseInfoUtils.INFO_CREATE);
                         }
                         infoMenu.show();

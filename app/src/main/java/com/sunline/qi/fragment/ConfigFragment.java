@@ -69,7 +69,7 @@ public class ConfigFragment extends Fragment {
     }
     private void initView(){
         EquipmentUtilsImpl utils = new EquipmentUtilsImpl(mContext);
-        List<Button> list = utils.loadEquipments(mContext);
+        List<Button> list = utils.loadEquipments();
         if (null != list){
             for (Button button : list) {
                 mContainer.addView(button);

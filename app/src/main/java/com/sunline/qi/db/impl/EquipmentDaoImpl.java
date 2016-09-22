@@ -137,4 +137,13 @@ public class EquipmentDaoImpl extends DBHelper implements EquipmentDao {
         }
         return id;
     }
+    public String findEquipmentName(int rid) {
+        String sql = "select name from Equipment where rid = ?";
+        Cursor cursor = query(sql,Integer.toString(rid));
+        String name = "";
+        while (cursor.moveToNext()){
+            name = cursor.getString(cursor.getColumnIndex("name")).trim();
+        }
+        return name;
+    }
 }

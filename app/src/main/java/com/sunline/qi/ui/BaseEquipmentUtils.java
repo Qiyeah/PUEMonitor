@@ -14,11 +14,11 @@ import java.util.List;
 public interface BaseEquipmentUtils {
     public static final int EQUIPMENT_CREATE = 0x01;
     public static final int EQUIPMENT_UPDATE = 0x02;
-    Button createEquipments(Context context, AndroidEquipment ASEquipment, Location location);
-    boolean deleteEquipments(Context context,Button equipment, String id);
-    boolean updateEquipments(Context context, AndroidEquipment ASEquipment);
-    AndroidEquipment findEquipments(Context context, String id);
-    List<Button> loadEquipments(Context context);
+    Button createEquipments(/*Context context,*/ AndroidEquipment ASEquipment, Location location);
+    boolean deleteEquipments(/*Context context,*/Button equipment, String id);
+    boolean updateEquipments(/*Context context, */AndroidEquipment ASEquipment);
+    AndroidEquipment findEquipments(/*Context context, */String id);
+    List<Button> loadEquipments(/*Context contex*/);
     Button loadEquipment(String name,  Location location);
     boolean updateLocation(Location location);
 }

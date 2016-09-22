@@ -1,9 +1,14 @@
 package com.sunline.qi.http;
 
+import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.sunline.qi.entity.Equipment;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -32,9 +37,16 @@ public class HttpUtils {
                     conn.setRequestProperty("Content-length", String.valueOf(json.getBytes().length));
                     OutputStream os = conn.getOutputStream();
                     os.write(json.getBytes());
-                    System.out.println("json = "+json);
+                    System.out.println("json = " + json);
+                    InputStream is = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(is));
                     if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
                         System.out.println("网络操作成功！");
+                        String line = "";
+                        while (null != (line = reader.readLine())){
+                            System.out.println(line);
+                        }
+
                     }else {
                         System.out.println("response code = "+conn.getResponseCode());
                     }

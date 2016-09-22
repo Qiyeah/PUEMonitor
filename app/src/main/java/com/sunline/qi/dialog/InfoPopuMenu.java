@@ -112,6 +112,7 @@ public class InfoPopuMenu extends AlertDialog.Builder {
                     utils.addInfos(infos);
                     //todo add to server
                     //write code here
+
                 } else if (BaseInfoUtils.INFO_UPDATE == type) {
                     utils.updateInfos(infos);
                     //todo update to server

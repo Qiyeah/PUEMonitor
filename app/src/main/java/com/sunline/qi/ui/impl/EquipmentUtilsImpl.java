@@ -30,8 +30,8 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
     }
 
     @Override
-    public Button createEquipments(Context context, AndroidEquipment asEquipment, Location location) {
-        Button button = new Button(context);
+    public Button createEquipments(/*Context context,*/ AndroidEquipment asEquipment, Location location) {
+        Button button = new Button(mContext);
         button.setText(asEquipment.getName());
         button.setId(location.getId());
         int width = location.getWidth();
@@ -62,26 +62,26 @@ public class EquipmentUtilsImpl implements BaseEquipmentUtils {
     }
 
     @Override
-    public boolean deleteEquipments(Context context, Button equipment, String id) {
+    public boolean deleteEquipments(/*Context context,*/ Button equipment, String id) {
         equipment.setVisibility(View.GONE);
         return dbUtils.deleteEquipment(id);
     }
 
     @Override
-    public boolean updateEquipments(Context context, AndroidEquipment ASEquipment) {
+    public boolean updateEquipments(/*Context context,*/ AndroidEquipment ASEquipment) {
         return dbUtils.updateEquipment(ASEquipment);
     }
 
     @Override
-    public AndroidEquipment findEquipments(Context context, String id) {
+    public AndroidEquipment findEquipments(/*Context context, */String id) {
         return dbUtils.findEquipment(id);
     }
 
     @Override
-    public List<Button> loadEquipments(Context context) {
+    public List<Button> loadEquipments(/*Context context*/) {
         List<Button> list = new ArrayList<>();
-        EquipmentDaoImpl equipmentDao = new EquipmentDaoImpl(context);
-        LocationDaoImpl locationDao = new LocationDaoImpl(context);
+        EquipmentDaoImpl equipmentDao = new EquipmentDaoImpl(mContext);
+        LocationDaoImpl locationDao = new LocationDaoImpl(mContext);
         List<AndroidEquipment> asEquipments = equipmentDao.findAll();
         if (null != asEquipments && 0 < asEquipments.size()) {
             for (AndroidEquipment asEquipment : asEquipments) {

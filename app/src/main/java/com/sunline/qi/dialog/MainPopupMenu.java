@@ -53,10 +53,11 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
         mLocation = new Location();
     }
 
-    public MainPopupMenu(int id, Context context) {
+    public MainPopupMenu( Context context,View v) {
         super(context);
-        mRid = id;
+        mRid = v.getId();
         mContext = context;
+        button = (Button) v;
         equipmentDao = new EquipmentDaoImpl(mContext);
         locationDao = new LocationDaoImpl(mContext);
     }
@@ -222,11 +223,11 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
                     int rid = IDUtils.generateRID();
                     mAndroidEquipment.setRid(rid);
                     mLocation.setId(rid);
-                    button = utils.createEquipments(mContext, mAndroidEquipment, mLocation);
+                    button = utils.createEquipments( mAndroidEquipment, mLocation);
                     System.out.println(null == button);
                     callBack(button);
                     //TODO 保存到服务器端,需要判断是否创建成功
-                    String path = "http://192.168.1.117:8080/PseudoProgram/AddEquipmentServlet";
+                    String path = "http://192.168.1.117:8080/Server/AddEquipmentServlet";
                     HttpUtils httpUtils = new HttpUtils();
                     httpUtils.doPost(path,
                             new Equipment(mAndroidEquipment.getId(),
@@ -243,9 +244,9 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
                 } else if (BaseEquipmentUtils.EQUIPMENT_UPDATE == type) {
                     mAndroidEquipment.setRid(mRid);
                     mLocation.setId(mRid);
-                    boolean flag = utils.updateEquipments(mContext, mAndroidEquipment);
+                    boolean flag = utils.updateEquipments(mAndroidEquipment);
                     if (flag) {
-
+                        button.setText(mAndroidEquipment.getName());
                         Toast.makeText(mContext, "设备更新成功", Toast.LENGTH_SHORT).show();
                         //TODO 更新到服务器
                         //Write code here
@@ -310,36 +311,3 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
 
     public abstract void callBack(Button button);
 }
-
-// Toast.makeText(mContext, ""+(null == mEquipment), Toast.LENGTH_SHORT).show();
-                   /*Toast.makeText(mContext, "ID:" + mEquipment.getId()
-                           + "\nRID:" + "" + mEquipment.getRid()
-                           + "\nName" + mEquipment.getName()
-                           + "\nPort:" + mEquipment.getPort()
-                           + "\nRate:" + mEquipment.getRate()
-                           + "\nAddr:" + mEquipment.getAddr()
-                           + "\nData:" + mEquipment.getDataBits()
-                           + "\nStop:" + mEquipment.getStopBits()
-                           + "\nState:" + mEquipment.getSwitch()
-                           + "\nDelay:" + mEquipment.getDelay()
-                           + "\nLID:" + mLocation.getId()
-                           + "\nWidth:" + mLocation.getWidth()
-                           + "\nHeight:" + mLocation.getHeight()
-                           + "\nxAxis:" + mLocation.getxAxis()
-                           + "\nyAxis:" + mLocation.getyAxis()
-                           , Toast.LENGTH_LONG).show();
-                    System.out.println("ID:" + mEquipment.getId()
-                            + "\nRID:" + "" + mEquipment.getRid()
-                            + "\nName" + mEquipment.getName()
-                            + "\nPort:" + mEquipment.getPort()
-                            + "\nRate:" + mEquipment.getRate()
-                            + "\nAddr:" + mEquipment.getAddr()
-                            + "\nData:" + mEquipment.getDataBits()
-                            + "\nStop:" + mEquipment.getStopBits()
-                            + "\nState:" + mEquipment.getSwitch()
-                            + "\nDelay:" + mEquipment.getDelay()
-                            + "\nLID:" + mLocation.getId()
-                            + "\nWidth:" + mLocation.getWidth()
-                            + "\nHeight:" + mLocation.getHeight()
-                            + "\nxAxis:" + mLocation.getxAxis()
-                            + "\nyAxis:" + mLocation.getyAxis());*/
