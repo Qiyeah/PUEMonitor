@@ -1,6 +1,6 @@
 package com.sunline.qi.ui;
 
-import com.sunline.qi.entity.AndroidInfo;
+import com.sunline.qi.entity.EquipmentInfo;
 
 /**
  * Created by sunline on 2016/9/19.
@@ -8,8 +8,8 @@ import com.sunline.qi.entity.AndroidInfo;
 public interface BaseInfoUtils {
     public static final int INFO_CREATE = 0x01;
     public static final int INFO_UPDATE = 0x02;
-    boolean addInfos(AndroidInfo[] infos);
-    boolean updateInfos(AndroidInfo[] infos);
+    boolean addInfos(EquipmentInfo[] infos);
+    boolean updateInfos(EquipmentInfo[] infos);
     boolean deleteInfos(String fk);
-    AndroidInfo[] findInfos(String fk);
+    EquipmentInfo[] findInfos(String fk);
 }

@@ -227,7 +227,9 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
                     System.out.println(null == button);
                     callBack(button);
                     //TODO 保存到服务器端,需要判断是否创建成功
-                    String path = "http://192.168.1.117:8080/Server/AddEquipmentServlet";
+                    String servlet = "AddEquipmentServlet";
+                    String path = HttpUtils.URL_PATH+servlet;
+                    System.out.println(path);
                     HttpUtils httpUtils = new HttpUtils();
                     httpUtils.doPost(path,
                             new Equipment(mAndroidEquipment.getId(),

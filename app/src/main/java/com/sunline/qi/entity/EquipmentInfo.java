@@ -4,19 +4,20 @@ package com.sunline.qi.entity;
  * Created by sunline on 2016/8/22.
  */
 public class EquipmentInfo {
+    private String fId;
     private String mId;
     private int mRoute;
     private String mRouteName;
-    private String fId;
     private int mTotalPer;
     private int mITPer;
-    private int mTotalSymbol = 1;
-    private int mITSymbol = 1;
+    private int mTotalSymbol;
+    private int mITSymbol;
+
     public EquipmentInfo() {
     }
 
-    public EquipmentInfo(String id, int route, String routeName, String fId,
-                       int totalPer, int ITPer, int totalSymbol, int ITSymbol) {
+    public EquipmentInfo(String fId, String id, int route, String routeName,
+                         int totalPer, int ITPer, int totalSymbol, int ITSymbol) {
         mId = id;
         mRoute = route;
         mRouteName = routeName;
@@ -91,5 +92,4 @@ public class EquipmentInfo {
     public void setITSymbol(int ITSymbol) {
         mITSymbol = ITSymbol;
     }
-
 }

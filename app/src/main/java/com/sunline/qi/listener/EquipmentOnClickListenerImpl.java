@@ -76,13 +76,14 @@ public class EquipmentOnClickListenerImpl implements View.OnClickListener {
                         dialog.show();
                         break;
                     case R.id.menu_setting_info:
-                        InfoPopuMenu infoMenu = new InfoPopuMenu(fk, mContext);
-                        boolean isExists = false;
-                        isExists = infoDao.isExists(fk);
+                        InfoPopuMenu infoMenu = null;
+                        boolean isExists =  infoDao.isExists(fk);
                         if (isExists) {
-                            infoMenu.initDialog(BaseInfoUtils.INFO_UPDATE);
+                            infoMenu = new InfoPopuMenu(fk, mContext,BaseInfoUtils.INFO_CREATE);
+                            infoMenu.initDialog();
                         } else {
-                            infoMenu.initDialog(BaseInfoUtils.INFO_CREATE);
+                            infoMenu = new InfoPopuMenu(fk, mContext,BaseInfoUtils.INFO_CREATE);
+                            infoMenu.initDialog();
                         }
                         infoMenu.show();
                         break;

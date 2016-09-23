@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.sunline.qi.db.InfoDao;
 import com.sunline.qi.db.impl.InfoDaoImpl;
-import com.sunline.qi.entity.AndroidInfo;
+import com.sunline.qi.entity.EquipmentInfo;
 import com.sunline.qi.ui.BaseInfoUtils;
 
 /**
@@ -17,9 +17,9 @@ public class InfoUtilsImpl implements BaseInfoUtils {
     }
 
     @Override
-    public boolean addInfos(AndroidInfo[] infos) {
+    public boolean addInfos(EquipmentInfo[] infos) {
         boolean flag = false;
-        for (AndroidInfo info : infos) {
+        for (EquipmentInfo info : infos) {
          /*   System.out.println(info.getfId());
             System.out.println();*/
            flag = dao.addInfo(info);
@@ -28,9 +28,9 @@ public class InfoUtilsImpl implements BaseInfoUtils {
     }
 
     @Override
-    public boolean updateInfos(AndroidInfo[] infos) {
+    public boolean updateInfos(EquipmentInfo[] infos) {
         boolean flag = false;
-        for (AndroidInfo info : infos) {
+        for (EquipmentInfo info : infos) {
             flag = dao.updateInfo(info);
         }
         return flag;
@@ -42,7 +42,7 @@ public class InfoUtilsImpl implements BaseInfoUtils {
     }
 
     @Override
-    public AndroidInfo[] findInfos(String fk) {
+    public EquipmentInfo[] findInfos(String fk) {
         return dao.findInfos(fk);
     }
 }

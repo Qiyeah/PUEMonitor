@@ -5,7 +5,7 @@ import android.database.Cursor;
 
 import com.sunline.qi.db.DBHelper;
 import com.sunline.qi.db.InfoDao;
-import com.sunline.qi.entity.AndroidInfo;
+import com.sunline.qi.entity.EquipmentInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class InfoDaoImpl extends DBHelper implements InfoDao {
     }
 
     @Override
-    public boolean addInfo(AndroidInfo info) {
+    public boolean addInfo(EquipmentInfo info) {
 
         String sql = "insert into EquipmentInfo (" +
                 "_id,fk,route,name,total_symbol,total_per,it_symbol,it_per" +
@@ -39,7 +39,7 @@ public class InfoDaoImpl extends DBHelper implements InfoDao {
     }
 
     @Override
-    public boolean updateInfo(AndroidInfo info) {
+    public boolean updateInfo(EquipmentInfo info) {
         String sql = "update EquipmentInfo set name = ?,total_per = ?,total_symbol = ? ,it_per = ? ,it_symbol = ? ," +
                 "dt = (datetime('now','localtime')) where fk = ? and route = ? ";
         return update(sql,new Object[]{info.getRouteName(),info.getTotalPer(),info.getTotalSymbol(),
@@ -47,8 +47,8 @@ public class InfoDaoImpl extends DBHelper implements InfoDao {
     }
 
     @Override
-    public AndroidInfo[] findInfos(String fk) {
-        List<AndroidInfo> infos = new ArrayList<>();
+    public EquipmentInfo[] findInfos(String fk) {
+        List<EquipmentInfo> infos = new ArrayList<>();
         String sql = "select _id,route,name,total_symbol,total_per,it_symbol,it_per from EquipmentInfo where fk = ?";
         Cursor cursor = query(sql,fk);
         while (cursor.moveToNext()){
@@ -59,10 +59,10 @@ public class InfoDaoImpl extends DBHelper implements InfoDao {
             int total_per = cursor.getInt(cursor.getColumnIndex("total_per"));
             int it_symbol = cursor.getInt(cursor.getColumnIndex("it_symbol"));
             int it_per = cursor.getInt(cursor.getColumnIndex("it_per"));
-            AndroidInfo info = new AndroidInfo(fk,_id,route,name,total_per,it_per,total_symbol,it_symbol);
+            EquipmentInfo info = new EquipmentInfo(fk,_id,route,name,total_per,it_per,total_symbol,it_symbol);
             infos.add(info);
         }
-        return infos.toArray(new AndroidInfo[0]);
+        return infos.toArray(new EquipmentInfo[0]);
     }
 
     @Override
