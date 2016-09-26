@@ -46,11 +46,16 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
     private LocationDaoImpl locationDao;
     EquipmentMainTag tag = null;
 
+    HttpUtils httpUtils = new HttpUtils();
+
+    String servlet = "";
+
     public MainPopupMenu(Context context) {
         super(context);
         mContext = context;
         mAndroidEquipment = new AndroidEquipment();
         mLocation = new Location();
+        servlet = "AddEquipmentServlet";
     }
 
     public MainPopupMenu( Context context,View v) {
@@ -227,11 +232,8 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
                     System.out.println(null == button);
                     callBack(button);
                     //TODO 保存到服务器端,需要判断是否创建成功
-                    String servlet = "AddEquipmentServlet";
-                    String path = HttpUtils.URL_PATH+servlet;
-                    System.out.println(path);
-                    HttpUtils httpUtils = new HttpUtils();
-                    httpUtils.doPost(path,
+
+                    httpUtils.doPost(servlet,
                             new Equipment(mAndroidEquipment.getId(),
                                     mAndroidEquipment.getName(),
                                     mAndroidEquipment.getPort(),
@@ -243,18 +245,31 @@ public abstract class MainPopupMenu extends AlertDialog.Builder {
                                     mAndroidEquipment.getParity(),
                                     mAndroidEquipment.getSwitch(),
                                     mAndroidEquipment.getDelay()));
+
                 } else if (BaseEquipmentUtils.EQUIPMENT_UPDATE == type) {
                     mAndroidEquipment.setRid(mRid);
                     mLocation.setId(mRid);
                     boolean flag = utils.updateEquipments(mAndroidEquipment);
                     if (flag) {
                         button.setText(mAndroidEquipment.getName());
-                        Toast.makeText(mContext, "设备更新成功", Toast.LENGTH_SHORT).show();
+
                         //TODO 更新到服务器
                         //Write code here
 
-                    }
+                        httpUtils.doPost(servlet,new Equipment(mAndroidEquipment.getId(),
+                                mAndroidEquipment.getName(),
+                                mAndroidEquipment.getPort(),
+                                mAndroidEquipment.getRate(),
+                                mAndroidEquipment.getAddr(),
+                                mAndroidEquipment.getTimeOut(),
+                                mAndroidEquipment.getDataBits(),
+                                mAndroidEquipment.getStopBits(),
+                                mAndroidEquipment.getParity(),
+                                mAndroidEquipment.getSwitch(),
+                                mAndroidEquipment.getDelay()));
 
+                        Toast.makeText(mContext, "设备更新成功", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 dialog.dismiss();
                 dialog.cancel();

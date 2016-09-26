@@ -109,7 +109,6 @@ public class InfoPopuMenu extends AlertDialog.Builder {
                 //printInfos();
                 //TODO 添加配置文件到本地Sqlite数据库
                 String servlet = "AddEquipmentInfoServlet";
-                String path = HttpUtils.URL_PATH+servlet;
                 HttpUtils httpUtils = new HttpUtils();
                 if (BaseInfoUtils.INFO_CREATE == type) {
                     //添加到本地数据库
@@ -118,8 +117,8 @@ public class InfoPopuMenu extends AlertDialog.Builder {
                     //printInfos(infos);
                     //todo add to server
                     //write code here
-                    System.out.println("path = "+path);
-                    httpUtils.doPost(path,new InfoList(infos));
+                    System.out.println("servlet = "+servlet);
+                    httpUtils.doPost(servlet,new InfoList(infos));
                 } else if (BaseInfoUtils.INFO_UPDATE == type) {
                     System.out.println("update infos ");
                     utils.updateInfos(infos);
@@ -127,7 +126,7 @@ public class InfoPopuMenu extends AlertDialog.Builder {
                     //printInfos(infos);
                     //todo update to server
                     //write code here
-                    httpUtils.doPost(path,new InfoList(infos));
+                    httpUtils.doPost(servlet,new InfoList(infos));
                 }
                 dialog.dismiss();
                 dialog.cancel();

@@ -20,9 +20,10 @@ import java.net.URL;
  * Created by qi on 2016/9/17.
  */
 public class HttpUtils {
-    static String separator = File.separator;
-    static String address = "192.168.1.135";
-    public static final String URL_PATH = "http://"+address+":8080/Server/";
+    private String separator = File.separator;
+    private String address = "192.168.1.135";
+    private String path;
+    private String servlet;
 
     URL url = null;
     HttpURLConnection conn = null;
@@ -37,46 +38,11 @@ public class HttpUtils {
     public HttpUtils(Context context) {
         mContext = context;
     }
+    int count = 0 ;
 
-    private class HttpThread implements Runnable {
-        String json;
-        String path;
-        public HttpThread(String path,String json) {
-            this.json = json;
-            this.path = path;
-        }
 
-        @Override
-        public void run() {
-            URL url = null;
-            try {
-                url = new URL(path);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("POST");
-                conn.setConnectTimeout(1000 * 5);
-                conn.setDoOutput(true);
-                conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded");
-                conn.setRequestProperty("Content-length", String.valueOf(json.getBytes().length));
-                OutputStream os = conn.getOutputStream();
-                os.write(json.getBytes());
-                System.out.println("json = " + json);
-                if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    System.out.println("网络操作成功！");
-                }else {
-                    System.out.println("response code = "+conn.getResponseCode());
-                }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (ProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void sendMessage(String path, String json) {
-        new Thread(new HttpThread(path,json)).start();
+    public void sendMessage(String servlet, String json) {
+        new Thread(new HttpThread(servlet,json)).start();
     }
 
     public String parse2JSON(Object obj) {
@@ -102,25 +68,27 @@ public class HttpUtils {
         return json;
     }
 
-    public void doPost(String path, Equipment equipment) {
+    public void doPost(String servlet, Equipment equipment) {
         //对象转JSON
         String json = parse2JSON(equipment);
-        System.out.println("json = "+json);
-        //打开网络连接
-        sendMessage(path, json);
-        //开启线程，向服务器发送信息
-
+        System.out.println("doPost json = "+json);
+        //向服务器发送请求
+        sendMessage(servlet, json);
         //关闭网络连接
         closeConn();
     }
-    public void doPost(String path, InfoList list) {
+    public void doPost(String servlet, InfoList list) {
         //对象转JSON
         String json = parse2JSON(list);
-        System.out.println("json = "+json);
-        //打开网络连接
-        sendMessage(path, json);
-        //开启线程，向服务器发送信息
-
+        System.out.println("json = " + json);
+        //向服务器发送请求
+        sendMessage(servlet, json);
+        //关闭网络连接
+        closeConn();
+    }
+    public void doPost(String servlet, String fk) {
+        //向服务器发送请求
+        sendMessage(servlet, fk);
         //关闭网络连接
         closeConn();
     }
@@ -143,6 +111,75 @@ public class HttpUtils {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public String getServlet() {
+        return servlet;
+    }
+
+    public void setServlet(String servlet) {
+        this.servlet = servlet;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    private class HttpThread implements Runnable {
+        String json;
+        String servlet;
+        String path;
+        public HttpThread(String servlet,String json) {
+            this.json = json;
+            this.servlet = servlet;
+            System.out.println(servlet);
+            path = "http://"+address+":8080/Server/"+servlet;
+        }
+
+        @Override
+        public void run() {
+            URL url = null;
+            try {
+                System.out.println(path);
+                url = new URL(path);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setConnectTimeout(1000 * 5);
+                conn.setDoOutput(true);
+                conn.setRequestProperty("Content-type", "application/x-www-form-urlencoded");
+                conn.setRequestProperty("Content-length", String.valueOf(json.getBytes().length));
+                OutputStream os = conn.getOutputStream();
+                os.write(json.getBytes());
+                System.out.println("json = " + json);
+                if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    System.out.println("网络操作成功！");
+                }else {
+                    System.out.println("response code = "+conn.getResponseCode());
+                    count++;
+                    if (5 > count){
+                        run();
+                    }
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ import com.sunline.qi.db.impl.InfoDaoImpl;
 import com.sunline.qi.db.impl.LocationDaoImpl;
 import com.sunline.qi.dialog.InfoPopuMenu;
 import com.sunline.qi.dialog.MainPopupMenu;
+import com.sunline.qi.http.HttpUtils;
 import com.sunline.qi.ui.BaseEquipmentUtils;
 import com.sunline.qi.ui.BaseInfoUtils;
 
@@ -58,6 +59,7 @@ public class EquipmentOnClickListenerImpl implements View.OnClickListener {
 
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                HttpUtils httpUtils = new HttpUtils();
                 LocationDaoImpl locationDao = new LocationDaoImpl(mContext);
                 EquipmentDaoImpl equipmentDao = new EquipmentDaoImpl(mContext);
                 InfoDao infoDao = new InfoDaoImpl(mContext);
@@ -74,12 +76,13 @@ public class EquipmentOnClickListenerImpl implements View.OnClickListener {
                         };
                         dialog.initDialog(BaseEquipmentUtils.EQUIPMENT_UPDATE);
                         dialog.show();
+
                         break;
                     case R.id.menu_setting_info:
                         InfoPopuMenu infoMenu = null;
                         boolean isExists =  infoDao.isExists(fk);
                         if (isExists) {
-                            infoMenu = new InfoPopuMenu(fk, mContext,BaseInfoUtils.INFO_CREATE);
+                            infoMenu = new InfoPopuMenu(fk, mContext,BaseInfoUtils.INFO_UPDATE);
                             infoMenu.initDialog();
                         } else {
                             infoMenu = new InfoPopuMenu(fk, mContext,BaseInfoUtils.INFO_CREATE);
@@ -95,8 +98,15 @@ public class EquipmentOnClickListenerImpl implements View.OnClickListener {
                     case R.id.menu_setting_drop:
                         view.setVisibility(View.GONE);
                         Toast.makeText(mContext, fk, Toast.LENGTH_SHORT).show();
+
+
+                        httpUtils.doPost("DeleteEquipmentServlet", fk);
+                        httpUtils.doPost("DeleteEquipmentInfoServlet", fk);
+
                         locationDao.deleteLocation(fk);
                         equipmentDao.deleteEquipment(fk);
+                        infoDao.deleteInfo(fk);
+
                         break;
                 }
                 return true;
